@@ -1,0 +1,6 @@
+UnPush/
+.vs/
+Debug/
+Release/
+ipch/
+*.ipch
