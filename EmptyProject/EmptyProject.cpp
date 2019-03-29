@@ -42,6 +42,7 @@ bool CALLBACK ModifyDeviceSettings( DXUTDeviceSettings* pDeviceSettings, void* p
 HRESULT CALLBACK OnD3D9CreateDevice( IDirect3DDevice9* pd3dDevice, const D3DSURFACE_DESC* pBackBufferSurfaceDesc,
                                      void* pUserContext )
 {
+	//_CrtSetBreakAlloc(804);
 	mg.Init();
     return S_OK;
 }
@@ -54,6 +55,7 @@ HRESULT CALLBACK OnD3D9CreateDevice( IDirect3DDevice9* pd3dDevice, const D3DSURF
 HRESULT CALLBACK OnD3D9ResetDevice( IDirect3DDevice9* pd3dDevice, const D3DSURFACE_DESC* pBackBufferSurfaceDesc,
                                     void* pUserContext )
 {
+	RESOURCE->lpSprite->OnResetDevice();
     return S_OK;
 }
 
@@ -101,6 +103,7 @@ LRESULT CALLBACK MsgProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam,
 //--------------------------------------------------------------------------------------
 void CALLBACK OnD3D9LostDevice( void* pUserContext )
 {
+	RESOURCE->lpSprite->OnLostDevice();
 }
 
 
@@ -109,6 +112,7 @@ void CALLBACK OnD3D9LostDevice( void* pUserContext )
 //--------------------------------------------------------------------------------------
 void CALLBACK OnD3D9DestroyDevice( void* pUserContext )
 {
+	mg.Release();
 }
 
 
@@ -129,6 +133,14 @@ INT WINAPI wWinMain( HINSTANCE, HINSTANCE, LPWSTR, int )
 
 	}
 #endif
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	if (AllocConsole())
+	{
+		freopen("CONOUT$", "wb", stdout);
+		freopen("CONERR$", "wb", stderr);
+		freopen("CONIN$", "rb", stdin);
+
+	}
 
     // Set the callback functions
     DXUTSetCallbackD3D9DeviceAcceptable( IsD3D9DeviceAcceptable );
@@ -154,7 +166,7 @@ INT WINAPI wWinMain( HINSTANCE, HINSTANCE, LPWSTR, int )
     DXUTMainLoop();
 
     // TODO: Perform any application-level cleanup here
-
+	FreeConsole();
 #ifdef DEBUG
 	FreeConsole();
 

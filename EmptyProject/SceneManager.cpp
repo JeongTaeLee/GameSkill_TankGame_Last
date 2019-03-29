@@ -47,6 +47,7 @@ void SceneManager::Update()
 			lpNowScene->Release();
 			
 		lpNowScene = lpNextScene;
+		lpNextScene = nullptr;
 		lpNowScene->Init();
 	}
 	if (lpNowScene)

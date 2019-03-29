@@ -7,6 +7,9 @@ private:
 	static T * pMar;
 
 public:
+	singleton(){}
+	virtual ~singleton(){}
+
 	static T * Getinst()
 	{
 		if (!pMar)

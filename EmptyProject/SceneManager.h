@@ -21,8 +21,6 @@ public:
 	Scene * ChangeScene(RefStr key);
 
 	void Update();
-
-
 };
 
 #define SCENE SceneManager::Getinst()

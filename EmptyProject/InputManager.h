@@ -21,3 +21,7 @@ public:
 };
 
 #define INPUT InputManager::Getinst()
+
+#define KEYDOWN(i) INPUT->KeyDown(i)
+#define KEYUP(i) INPUT->KeyUp(i)
+#define KEYPRESS(i) INPUT->KeyPress(i)

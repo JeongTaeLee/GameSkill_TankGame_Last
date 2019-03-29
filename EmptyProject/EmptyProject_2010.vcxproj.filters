@@ -27,6 +27,60 @@
     <Filter Include="Manager\InputManager">
       <UniqueIdentifier>{9eff9f58-8511-4753-96ca-b41b93589b8d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager\ObjectManager">
+      <UniqueIdentifier>{1defae1b-b6ec-4e85-b2a5-be00712d4ad8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\ResourceManager">
+      <UniqueIdentifier>{2c4c860e-3487-4435-ad34-0f0eecfc1343}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MeshLoader">
+      <UniqueIdentifier>{2d44c366-366d-478a-b0ca-8f91638a7fb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject">
+      <UniqueIdentifier>{a569365d-cf11-4b53-92c6-57074cca2024}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{169830ed-a783-4a84-a942-4fe4e9a08a37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Transform">
+      <UniqueIdentifier>{27e9d85a-31d2-43e1-9e33-839bfd3d4cbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Renderer">
+      <UniqueIdentifier>{5a607247-1047-4e05-9b94-7f9a77adb4fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\UIRenderer">
+      <UniqueIdentifier>{9323a531-e5aa-4fa9-8dab-cd72c35ee184}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\ShaderRenderer">
+      <UniqueIdentifier>{b9d35f56-3981-450f-8371-3caeac1717db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Stage01">
+      <UniqueIdentifier>{fe55d987-ebc9-4108-8884-65966ad33b69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\LoadingScene">
+      <UniqueIdentifier>{05f30240-e3e0-4f7a-98b6-3dfac8428497}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Func">
+      <UniqueIdentifier>{3fc6542e-3b35-4189-84de-14ef566bab14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\CameraManager">
+      <UniqueIdentifier>{5d1cf405-f2ca-4143-a134-5d34c4cff613}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Player">
+      <UniqueIdentifier>{8590ab05-90dd-4822-a629-8f3b53d911e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Animater">
+      <UniqueIdentifier>{6099f45b-ceff-4781-823e-428658713377}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Map">
+      <UniqueIdentifier>{d84b2b0c-034a-4a12-96fd-963959443c4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Map\Map01">
+      <UniqueIdentifier>{0e4b4604-e537-4130-8554-422ab4047679}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\MapManager">
+      <UniqueIdentifier>{47c5a3fe-9244-4fa8-a71b-11fd494b2ca4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -101,6 +155,60 @@
     <ClCompile Include="InputManager.cpp">
       <Filter>Manager\InputManager</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>Manager\ObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Manager\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshLoader.cpp">
+      <Filter>MeshLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="UIRenderer.cpp">
+      <Filter>Component\UIRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderRenderer.cpp">
+      <Filter>Component\ShaderRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage01.cpp">
+      <Filter>Scene\Stage01</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingScene.cpp">
+      <Filter>Scene\LoadingScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Func.cpp">
+      <Filter>Func</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraManger.cpp">
+      <Filter>Manager\CameraManager</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerTank.cpp">
+      <Filter>GameObject\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Animater.cpp">
+      <Filter>Component\Animater</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>GameObject\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Map01.cpp">
+      <Filter>GameObject\Map\Map01</Filter>
+    </ClCompile>
+    <ClCompile Include="MapManager.cpp">
+      <Filter>Manager\MapManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -118,6 +226,60 @@
     </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>Manager\InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>Manager\ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Manager\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshLoader.h">
+      <Filter>MeshLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="UIRenderer.h">
+      <Filter>Component\UIRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderRenderer.h">
+      <Filter>Component\ShaderRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage01.h">
+      <Filter>Scene\Stage01</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingScene.h">
+      <Filter>Scene\LoadingScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Func.h">
+      <Filter>Func</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraManger.h">
+      <Filter>Manager\CameraManager</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerTank.h">
+      <Filter>GameObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Animater.h">
+      <Filter>Component\Animater</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>GameObject\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Map01.h">
+      <Filter>GameObject\Map\Map01</Filter>
+    </ClInclude>
+    <ClInclude Include="MapManager.h">
+      <Filter>Manager\MapManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
