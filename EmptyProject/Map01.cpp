@@ -14,5 +14,5 @@ Map01::~Map01()
 void Map01::Init()
 {
 	AC(Renderer);
-	lpRenderer->lpMesh = GetMesh_(L"TestMap");
+	lpRenderer->lpMesh = GetMesh_(L"Stage01");
 }

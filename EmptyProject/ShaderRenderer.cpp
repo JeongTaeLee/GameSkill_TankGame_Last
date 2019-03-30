@@ -30,39 +30,47 @@ void ShaderRenderer::Render()
 {
 	if (lpMesh && lpEffect)
 	{
-		g_device->SetTransform(D3DTS_WORLD, &transform->matWorld);
-
 		if (begin)
 			begin();
-
+	
 		g_device->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
 		g_device->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
 		g_device->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
 
+		lpEffect->SetMatrix(D3DXHANDLE("gWorldMatrix"), &transform->matWorld);
+		lpEffect->SetMatrix(D3DXHANDLE("gViewMatrix"), &CAMERA->matView);
+		lpEffect->SetMatrix(D3DXHANDLE("gProjMatrix"), &CAMERA->matProj);
 
+		lpEffect->SetVector(D3DXHANDLE("gCameraPos"), &Vector4(CAMERA->lpNowCamera->vPos, 1.f));
+		lpEffect->SetVector(D3DXHANDLE("gLightPos"), &Vector4(3000.f, 5000.f, 0.f, 1.f));
+	
 		UINT pass = 0;
 		lpEffect->Begin(&pass, 0);
-
+	
 		for (int j = 0; j < pass; ++j)
 		{
 			lpEffect->BeginPass(pass);
-			for (int i = 0; i < lpMesh->veMat.size(); ++i)
+			for (int i = 0; i < lpMesh->GetNumMaterials(); ++i)
 			{
-				if (lpMesh->veMat[i]->lpDiffuseMap)
-					lpEffect->SetTexture(D3DXHANDLE("gDiffuseTexture"), lpMesh->veMat[i]->lpDiffuseMap->lpTex);
-				if (lpMesh->veMat[i]->lpSpecularMap)
-					lpEffect->SetTexture(D3DXHANDLE("gSpecularTexture"), lpMesh->veMat[i]->lpSpecularMap->lpTex);
+				if (lpMesh->GetMaterial(i)->lpDiffuse)
+					lpEffect->SetTexture(D3DXHANDLE("gDiffuseMap"), lpMesh->GetMaterial(i)->lpDiffuse->lpTex);
+				if (lpMesh->GetMaterial(i)->lpSpecular)
+					lpEffect->SetTexture(D3DXHANDLE("gSpecualrMap"), lpMesh->GetMaterial(i)->lpSpecular->lpTex);
 				else
-					lpEffect->SetTexture(D3DXHANDLE("gSpecularTexture"), lpMesh->veMat[i]->lpDiffuseMap->lpTex);
+				{
+					if (lpMesh->GetMaterial(i)->lpDiffuse)
+						lpEffect->SetTexture(D3DXHANDLE("gDiffuseMap"), lpMesh->GetMaterial(i)->lpDiffuse->lpTex);
+				}
 
-				lpEffect->CommitChanges();
-				lpMesh->mesh->DrawSubset(i);
+				lpMesh->GetMesh()->DrawSubset(i);
+	
+				g_device->SetTexture(0, nullptr);
 			}
 			lpEffect->EndPass();
 		}
-
+	
 		lpEffect->End();
-
+	
 		if (end)
 			end();
 	}

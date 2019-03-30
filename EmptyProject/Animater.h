@@ -3,7 +3,7 @@
 
 struct AnimaterClip
 {
-	vector<Mesh*> veMehs;
+	vector<CMeshLoader*> veMehs;
 	function< void() > endFunc = nullptr;
 };
 

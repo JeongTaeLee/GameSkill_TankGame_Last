@@ -13,6 +13,8 @@ PlayerTank::~PlayerTank()
 
 void PlayerTank::Init()
 {
+	transform->eType = TransformUpdateType::TU_2;
+
 	transform->vScale = Vector3(0.4f, 0.4f, 0.4f);
 
 	lpCamera = CAMERA->GetCamera(L"PlayerCamera");
@@ -22,9 +24,19 @@ void PlayerTank::Init()
 
 	AC(Renderer);
 	AC(Animater);
+	AC(RigidBody);
+	AC(PixelCollider);
 
 	lpAnimater->Add(L"Moving", L"TankA%d", 0, 1, [&]() { if (!bMove) lpAnimater->Stop(0); });
 	lpAnimater->Chanage(L"Moving", 0.05f);
+
+	lpRigidBody->bUseGravity = true;
+	lpRigidBody->fMass = 2.3f;
+	lpRigidBody->vDecrease.x = 0.94;
+	lpRigidBody->vDecrease.z = 0.94;
+
+	lpPixelCollider->iHeight = 6.f;
+
 }
 
 void PlayerTank::Release()
@@ -50,66 +62,116 @@ void PlayerTank::Update()
 
 void PlayerTank::Idle()
 {
-	bMove = false;
-	float fSpeed = 200.f;
+	eMoveType = E_MOVE_NONE;
 
-	Vector3 vNowDot = MAP->vWidthMap[MAP->iWidthIndex];
-	Vector3 vNextDot = MAP->vWidthMap[MAP->iWidthIndex + 1];
+	float fSpeed = 100.f;
+
+	int iNowIndex = MAP->iWidthIndex;
+	int iNextIndex = iNowIndex + 1;
+
+	Vector3 vNowVector = MAP->vWidthMap[iNowIndex];
+	Vector3 vNextVector = MAP->vWidthMap[iNextIndex];
 
 	if (KEYPRESS('A'))
 	{
-		bMove = true;
+		eMoveType = E_MOVE_BACK;
 
-		if (vNowDot.x < transform->vPos.x)
+		vLookDir = vNowVector - transform->vPos;
+		D3DXVec3Normalize(&vLookDir, &vLookDir);
+		vLookDir.y = 0.f;
+
+		transform->vPos += vLookDir * (fSpeed * Et);
+
+		if (transform->vPos.x < vNowVector.x)
 		{
-			vLookDir = vNowDot - transform->vPos;
-			D3DXVec3Normalize(&vLookDir, &vLookDir);
-
-			transform->vPos += vLookDir * (fSpeed * Et);
-			
-			if (GetLength(transform->vPos, vNowDot) < 3.f)
+			if (iNowIndex == 0)
 			{
-				if(MAP->iWidthIndex != 0)
-					MAP->iWidthIndex--;
+			}
+			else
+			{
+				iNowIndex = (--MAP->iWidthIndex);
+				iNextIndex = iNowIndex + 1;
+
+				vNowVector = MAP->vWidthMap[iNowIndex];
+				vNextVector = MAP->vWidthMap[iNextIndex];
 			}
 		}
 	}
 	if (KEYPRESS('D'))
 	{
-		bMove = true;
+		eMoveType = E_MOVE_FORWARD;
 
-		vLookDir = vNextDot - transform->vPos;
+		vLookDir = vNextVector - transform->vPos;
 		D3DXVec3Normalize(&vLookDir, &vLookDir);
+		vLookDir.y = 0.f;
 
 		transform->vPos += vLookDir * (fSpeed * Et);
 
-		if (GetLength(transform->vPos, vNextDot) < 3.f)
-		{
+		float fLength = GetLength(transform->vPos, vNextVector);
 
-			if (MAP->iWidthIndex == MAP->vWidthMap.size() - 2)
+		if (transform->vPos.x > vNextVector.x)
+		{
+			if (iNowIndex == MAP->vWidthMap.size() - 2)
 			{
-				//StageClear
+
 			}
 			else
-				MAP->iWidthIndex++;
+			{
+				iNowIndex = (++MAP->iWidthIndex);
+				iNextIndex = iNowIndex + 1;
+
+				vNowVector = MAP->vWidthMap[iNowIndex];
+				vNextVector = MAP->vWidthMap[iNextIndex];
+			}
 		}
 	}
+	if (KEYDOWN(VK_SPACE))
+	{
+		lpRigidBody->vVelocity.y = 0.f;
+		
+		lpRigidBody->AddForce(Vector3(0.f, 400, 0.));
+	}
 
-	if (bMove)
+	GetLookAtS(transform->qRot, vLookDir, 0.1f);
+
+	if (eMoveType != E_MOVE_NONE)
 		lpAnimater->UnStop();
-
-	Vector2 vRotDir = Vector2(vLookDir.x, vLookDir.z);
-	transform->vRot.y = (-atan2f(vRotDir.y, vRotDir.x)) + D3DXToRadian(90.f);
 }
 
 void PlayerTank::CameraSetting()
 {
-	Vector3 vTarget =
-		transform->vPos + Vector3(0.f, 100.f, -150.f);
+	Vector3 vOriginDir = Vector3(0.f, 0.f, 1.f);
+	D3DXVec3TransformNormal(&vOriginDir, &vOriginDir, &transform->matRot);
+	Vector3 vT = transform->vPos + vOriginDir * 50.f;
 
-	Vector3 vLookAtTaget =
-		transform->vPos + Vector3(0.f, 50.f, 0.f);
+	Vector3 vRight = Vector3(0.f, 0.f, 0.f);
+	D3DXVec3Cross(&vRight, &vOriginDir, &Vector3(0.f, 1.f, 0.f));
+	D3DXVec3Normalize(&vRight, &vRight);
 
-	D3DXVec3Lerp(&lpCamera->vPos, &lpCamera->vPos, &vTarget, 0.4f);
-	D3DXVec3Lerp(&lpCamera->vLookAt, &lpCamera->vLookAt, &vLookAtTaget, 0.4f);
+	Vector3 vTarget = vT +
+		(-vRight) * 220.f;
+	vTarget.y += 120.f;
+
+	Vector3 vLookAtTarget = vT +
+		Vector3(0.f, 50.f, 0.f);
+
+	D3DXVec3Lerp(&lpCamera->vPos, &lpCamera->vPos, &vTarget, Et * 3);
+	D3DXVec3Lerp(&lpCamera->vLookAt, &lpCamera->vLookAt, &vLookAtTarget, Et * 3);
+
+	if (fShakeElapsed > fShakeDelay)
+	{
+		fShakeElapsed = 0.f;
+		fShakeDelay = GetRandomNumber<float>(0.07, 0.1);
+
+		if (eMoveType != E_MOVE_NONE)
+		{
+			float power = GetRandomNumber<float>(-2.2, 2.2);
+
+			lpCamera->vPos.y += (power);
+			lpCamera->vLookAt.y += (power);
+
+		}
+	}
+	else
+		fShakeElapsed += Et;
 }

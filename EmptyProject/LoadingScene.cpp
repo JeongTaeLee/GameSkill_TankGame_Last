@@ -41,7 +41,13 @@ void LoadingScene::Loading()
 	LoadMeshs(L"TankA%d", L"./rs/TankA/A%d.obj", 0, 1);
 	AdMesh(L"TankA_H", L"./rs/TankA/TankA_/TankA_.obj");
 
+	/*
 	AdMesh(L"TestMap", L"./rs/TestMap/TestMap.obj");
 	AdTex(L"TestMapWidth", L"./rs/TestMap/TestMapWidth.png");
+	AdTex(L"TestMapHeight", L"./rs/TestMap/TestMapHeight.png");
+	*/
+	AdMesh(L"Stage01", L"./rs/Stage1/Stage1.obj");
+	AdTex(L"Stage01Height", L"./rs/Stage1/Stage1_.png");
+	AdTex(L"Stage01Width", L"./rs/Stage1/Stage1B_.png");
 	bEnd = true;
 }

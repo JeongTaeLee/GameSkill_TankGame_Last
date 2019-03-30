@@ -40,7 +40,7 @@ void LoadMeshs(RefStr keys, RefStr paths, int min, int max)
 	}
 }
 
-void LoadMeshs(vector<Mesh*>& veTex, RefStr keys, int min, int max)
+void LoadMeshs(vector<CMeshLoader*>& veTex, RefStr keys, int min, int max)
 {
 	for (int i = min; i <= max; ++i)
 	{
@@ -55,7 +55,9 @@ void GetLookAt(Quaternion & qRot, const Vector3 & vDir)
 	Matrix matRot;
 	
 	D3DXMatrixLookAtLH(&matRot, &Vector3(0.f, 0.f, 0.f), &vDir, &Vector3(0.f, 1.f, 0.f));
+	D3DXMatrixTranspose(&matRot, &matRot);
 	D3DXQuaternionRotationMatrix(&qRot, &matRot);
+
 }
 
 void GetLookAtS(Quaternion & qRot, const Vector3 & vDir, float _fS)
@@ -63,6 +65,11 @@ void GetLookAtS(Quaternion & qRot, const Vector3 & vDir, float _fS)
 	Matrix matRot;
 
 	D3DXMatrixLookAtLH(&matRot, &Vector3(0.f, 0.f, 0.f), &vDir, &Vector3(0.f, 1.f, 0.f));
+	D3DXMatrixTranspose(&matRot, &matRot);
 	
-	Quaternion _qRot;
+	D3DXQUATERNION _qRot;
+	D3DXQuaternionRotationMatrix(&_qRot, &matRot);
+
+	D3DXQuaternionSlerp(&qRot, &qRot, &_qRot, _fS);
+	
 }

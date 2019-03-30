@@ -3,6 +3,7 @@
 
 enum PIXELTYPE
 {
+	e_none,
 	e_red,
 	e_magenta,
 };
@@ -18,6 +19,8 @@ public:
 	PlayerTank * lpTank = nullptr;
 
 	vector<pair<PIXELTYPE, int> >	vHeightMap;
+	int iWidth = 0;
+
 	vector<Vector3> vWidthMap;
 	int iWidthIndex = 0;
 public:
@@ -31,7 +34,6 @@ public:
 
 	void SetWidthMap(texture * lpWidthMap);
 	void SetHieghtMap(texture * lpHeightMap);
-
 };
 
 #define MAP MapManager::Getinst()

@@ -401,9 +401,11 @@
     <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="MeshLoader.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
+    <ClCompile Include="PixelCollider.cpp" />
     <ClCompile Include="PlayerTank.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="ShaderRenderer.cpp" />
@@ -423,9 +425,11 @@
     <ClInclude Include="MapManager.h" />
     <ClInclude Include="MeshLoader.h" />
     <ClInclude Include="ObjectManager.h" />
+    <ClInclude Include="PixelCollider.h" />
     <ClInclude Include="PlayerTank.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="RigidBody.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="ShaderRenderer.h" />

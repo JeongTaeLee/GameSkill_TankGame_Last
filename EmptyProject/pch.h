@@ -16,6 +16,7 @@ using namespace std;
 #include <list>
 #include <map>
 #include <fstream>
+#include <random>
 
 using Vector4 = D3DXVECTOR4;
 using Vector3 = D3DXVECTOR3;
@@ -60,14 +61,6 @@ struct texture
 	}
 };
 
-struct VERTEX
-{
-	Vector3 position;
-	Vector3 normal;
-	Vector2 uv;
-};
-
-#define MYFVF D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1
 #define Et DXUTGetElapsedTime()
 
 
@@ -88,3 +81,5 @@ struct VERTEX
 #include "ShaderRenderer.h"	
 #include "UIRenderer.h"
 #include "Animater.h"
+#include "RigidBody.h"
+#include "PixelCollider.h"

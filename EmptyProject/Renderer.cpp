@@ -1,6 +1,6 @@
 #include "DXUT.h"
 #include "Renderer.h"
-
+#include "MeshLoader.h"
 
 Renderer::Renderer()
 {
@@ -39,13 +39,13 @@ void Renderer::Render()
 		g_device->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
 
 
-		for (int i = 0; i < lpMesh->veMat.size(); ++i)
+		for (int i = 0; i < lpMesh->GetNumMaterials(); ++i)
 		{
-			if (lpMesh->veMat[i]->lpDiffuseMap)
-				g_device->SetTexture(0, lpMesh->veMat[i]->lpDiffuseMap->lpTex);
-
-			lpMesh->mesh->DrawSubset(i);
-
+			if (lpMesh->GetMaterial(i)->lpDiffuse)
+				g_device->SetTexture(0, lpMesh->GetMaterial(i)->lpDiffuse->lpTex);
+			
+			lpMesh->GetMesh()->DrawSubset(i);
+			
 			g_device->SetTexture(0, nullptr);
 		}
 

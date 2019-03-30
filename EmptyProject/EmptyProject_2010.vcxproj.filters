@@ -81,6 +81,12 @@
     <Filter Include="Manager\MapManager">
       <UniqueIdentifier>{47c5a3fe-9244-4fa8-a71b-11fd494b2ca4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Component\RigidBody">
+      <UniqueIdentifier>{a3db44b0-efac-40b0-8145-ce889ffb77ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\PixelCollider">
+      <UniqueIdentifier>{d7dc209d-16bf-4e46-8185-4ff7624cd6ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -161,9 +167,6 @@
     <ClCompile Include="ResourceManager.cpp">
       <Filter>Manager\ResourceManager</Filter>
     </ClCompile>
-    <ClCompile Include="MeshLoader.cpp">
-      <Filter>MeshLoader</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
@@ -209,6 +212,15 @@
     <ClCompile Include="MapManager.cpp">
       <Filter>Manager\MapManager</Filter>
     </ClCompile>
+    <ClCompile Include="MeshLoader.cpp">
+      <Filter>MeshLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>Component\RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="PixelCollider.cpp">
+      <Filter>Component\PixelCollider</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -232,9 +244,6 @@
     </ClInclude>
     <ClInclude Include="ResourceManager.h">
       <Filter>Manager\ResourceManager</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshLoader.h">
-      <Filter>MeshLoader</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>GameObject</Filter>
@@ -280,6 +289,15 @@
     </ClInclude>
     <ClInclude Include="MapManager.h">
       <Filter>Manager\MapManager</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshLoader.h">
+      <Filter>MeshLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody.h">
+      <Filter>Component\RigidBody</Filter>
+    </ClInclude>
+    <ClInclude Include="PixelCollider.h">
+      <Filter>Component\PixelCollider</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

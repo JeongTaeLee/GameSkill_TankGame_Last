@@ -1,13 +1,12 @@
 #include "DXUT.h"
 #include "ResourceManager.h"
-#include "MeshLoader.h"
 
 
 ResourceManager::ResourceManager()
 {
 	D3DXCreateSprite(g_device, &lpSprite);
 	
-	D3DXCreateMeshFVF(2, 4, D3DXMESH_32BIT | D3DXMESH_MANAGED, MYFVF, g_device, &lpMesh);
+	D3DXCreateMeshFVF(2, 4, D3DXMESH_32BIT | D3DXMESH_MANAGED, D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1, g_device, &lpMesh);
 	
 	void * vp = nullptr;
 	lpMesh->LockVertexBuffer(0, &vp);
@@ -30,8 +29,6 @@ ResourceManager::ResourceManager()
 	i[3] = 3; i[4] = 1; i[5] = 2;
 
 	lpMesh->UnlockIndexBuffer();
-
-	lpLoader = new MeshLoader;
 }
 
 
@@ -39,8 +36,6 @@ ResourceManager::~ResourceManager()
 {	
 	SAFE_RELEASE(lpSprite);
 	SAFE_RELEASE(lpMesh);
-	SAFE_DELETE(lpLoader);
-
 	Reset();
 }
 
@@ -87,20 +82,15 @@ void ResourceManager::DestroyTex(RefStr key)
 	}
 }
 
-Mesh * ResourceManager::AddMesh(RefStr key, RefStr path)
+CMeshLoader * ResourceManager::AddMesh(RefStr key, RefStr path)
 {
 	if (auto find = mMeshs.find(key); find != mMeshs.end())
 		return find->second;
 
-	Mesh * lpMesh = new Mesh;
+	CMeshLoader * loader = new CMeshLoader;
+	loader->Create(path.c_str());
 
-	if (FAILED(lpLoader->Create(lpMesh, path.c_str())))
-	{
-		DEBUG_LOGW(L"LFailed Mesh Load : " << key << L" , " <<  path);
-		return nullptr;
-	}
-
-	return mMeshs.insert(make_pair(key, lpMesh)).first->second;
+	return mMeshs.insert(make_pair(key, loader)).first->second;
 }
 
 LPD3DXEFFECT ResourceManager::AddEffect(RefStr key, RefStr path)

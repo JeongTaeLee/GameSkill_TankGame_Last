@@ -1,11 +1,13 @@
 #pragma once
 #include "Component.h"
 
+class CMeshLoader;
+
 class Renderer:
 	public Component
 {
 public:
-	Mesh * lpMesh = nullptr;
+	CMeshLoader * lpMesh = nullptr;
 
 	function<void()> begin = nullptr;
 	function<void()> end = nullptr;

@@ -2,20 +2,18 @@
 #include "singleton.h"
 
 struct Mesh;
-class MeshLoader;
+class CMeshLoader;
 
 class ResourceManager :
 	public singleton< ResourceManager>
 {
 public:
 	map<wstring, texture*> mTexs;	
-	map<wstring, Mesh*> mMeshs;
+	map<wstring, CMeshLoader*> mMeshs;
 	map<wstring, LPD3DXEFFECT> mEffects;
 
 	LPD3DXSPRITE lpSprite = nullptr;
 	LPD3DXMESH lpMesh = nullptr;
-
-	MeshLoader * lpLoader = nullptr;
 public:
 	ResourceManager();
 	virtual ~ResourceManager();
@@ -25,7 +23,7 @@ public:
 	texture * AddTex(RefStr key, RefStr path);
 	void DestroyTex(RefStr key);
 
-	Mesh * AddMesh(RefStr key, RefStr path);
+	CMeshLoader * AddMesh(RefStr key, RefStr path);
 
 	LPD3DXEFFECT AddEffect(RefStr key, RefStr path);
 };
