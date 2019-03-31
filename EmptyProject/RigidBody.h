@@ -7,6 +7,7 @@ public:
 	Vector3 vVelocity = Vector3(0.f, 0.f, 0.f);
 	Vector3 vForce = Vector3(0.f, 0.f, 0.f);
 	Vector3 vDecrease = Vector3(0.98f, 0.98f, 0.98f);
+	Vector3 vDir = Vector3(0.f, 0.f, 0.f);
 
 	float fMass = 0.f;
 	bool bUseGravity = false;
@@ -16,7 +17,6 @@ public:
 
 	virtual void Init()	override;
 	virtual void Release()	override;
-
 
 	virtual void Update()	override;
 public:

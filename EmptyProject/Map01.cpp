@@ -13,6 +13,6 @@ Map01::~Map01()
 
 void Map01::Init()
 {
-	AC(Renderer);
+	Map::Init();
 	lpRenderer->lpMesh = GetMesh_(L"Stage01");
 }

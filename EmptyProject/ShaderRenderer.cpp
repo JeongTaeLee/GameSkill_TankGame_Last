@@ -42,14 +42,15 @@ void ShaderRenderer::Render()
 		lpEffect->SetMatrix(D3DXHANDLE("gProjMatrix"), &CAMERA->matProj);
 
 		lpEffect->SetVector(D3DXHANDLE("gCameraPos"), &Vector4(CAMERA->lpNowCamera->vPos, 1.f));
-		lpEffect->SetVector(D3DXHANDLE("gLightPos"), &Vector4(3000.f, 5000.f, 0.f, 1.f));
-	
+		lpEffect->SetVector(D3DXHANDLE("gLightPos"), &Vector4(0.f, 5000.f, -2000.f, 1.f));
+		lpEffect->SetVector(D3DXHANDLE("gAmbent"), &Vector4(0.1f, 0.1f, 0.1f, 1.f));
+		
 		UINT pass = 0;
 		lpEffect->Begin(&pass, 0);
 	
 		for (int j = 0; j < pass; ++j)
 		{
-			lpEffect->BeginPass(pass);
+			lpEffect->BeginPass(j);
 			for (int i = 0; i < lpMesh->GetNumMaterials(); ++i)
 			{
 				if (lpMesh->GetMaterial(i)->lpDiffuse)
@@ -62,6 +63,8 @@ void ShaderRenderer::Render()
 						lpEffect->SetTexture(D3DXHANDLE("gDiffuseMap"), lpMesh->GetMaterial(i)->lpDiffuse->lpTex);
 				}
 
+				lpEffect->CommitChanges();
+
 				lpMesh->GetMesh()->DrawSubset(i);
 	
 				g_device->SetTexture(0, nullptr);
@@ -73,5 +76,9 @@ void ShaderRenderer::Render()
 	
 		if (end)
 			end();
+	}
+	else
+	{
+		DEBUG_LOG("Failed Load Mesh");
 	}
 }

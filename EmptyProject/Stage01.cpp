@@ -1,6 +1,7 @@
 #include "DXUT.h"
 #include "Stage01.h"
 
+#include "MonsterSpawn.h"
 #include "PlayerTank.h"
 
 Stage01::Stage01()
@@ -18,6 +19,9 @@ void Stage01::Init()
 
 	MAP->lpTank = tank;
 	MAP->LoadStage01();
+
+	MonsterSpawn * lpSpawn = AddObject(MonsterSpawn);
+	lpSpawn->lpPlayer = tank;
 }
 
 void Stage01::Release()

@@ -100,12 +100,12 @@ LPD3DXEFFECT ResourceManager::AddEffect(RefStr key, RefStr path)
 
 	LPD3DXEFFECT lpEffect = nullptr;
 	LPD3DXBUFFER lpBuffer = nullptr;
-	DWORD dwFlag = 0;
+	DWORD dwFlag = D3DXSHADER_DEBUG;
 
 #ifdef DEBUG
 	dwFlag = D3DXSHADER_DEBUG;
 #endif
-	D3DXCreateEffectFromFileEx(g_device, key.c_str(), nullptr,
+	D3DXCreateEffectFromFileEx(g_device, path.c_str(), nullptr,
 		nullptr, nullptr, dwFlag, nullptr, &lpEffect, &lpBuffer);
 
 	if (!lpEffect && lpBuffer)
@@ -115,13 +115,13 @@ LPD3DXEFFECT ResourceManager::AddEffect(RefStr key, RefStr path)
 
 		if (buffer)
 		{
-			wchar_t * st = new wchar_t[size];
-			swprintf(st, (wchar_t*)buffer);
+			char * ch = new char[size];
+			sprintf(ch, (char*)buffer);
 
-			OutputDebugString(st);
-			DEBUG_LOGW(st);
+			OutputDebugStringA(ch);
+			DEBUG_LOG(ch);
 
-			SAFE_DELETE_ARRAY(st);
+			SAFE_DELETE_ARRAY(ch);
 			return nullptr;
 		}
 	}

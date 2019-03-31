@@ -31,7 +31,10 @@ void RigidBody::Update()
 	vVelocity += vForce * Et;
 	vForce = Vector3(0.f, 0.f, 0.f);
 
+	vDir = transform->vPos;
 	transform->vPos += vVelocity;
+	vDir = transform->vPos - vDir;
+	D3DXVec3Normalize(&vDir, &vDir);
 
 	vVelocity.x *= vDecrease.x;
 	vVelocity.y *= vDecrease.y;

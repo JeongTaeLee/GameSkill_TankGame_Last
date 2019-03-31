@@ -16,7 +16,9 @@ class RigidBody;
 class GameObject
 {
 public:
-	Transform * transform;
+	string sTag = "None";
+
+	Transform * transform = nullptr;
 
 	bool bDestroy = false;
 	bool bActive = true;

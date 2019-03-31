@@ -14,7 +14,7 @@ UIRenderer::~UIRenderer()
 void UIRenderer::Init()
 {
 	gameObject->lpUIRenderer = this;
-
+	gameObject->transform->eType = TU_3;
 	OBJECT->AddUIRenderer(this);
 }
 

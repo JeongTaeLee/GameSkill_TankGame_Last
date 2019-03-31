@@ -83,3 +83,4 @@ struct texture
 #include "Animater.h"
 #include "RigidBody.h"
 #include "PixelCollider.h"
+#include "Collider.h"

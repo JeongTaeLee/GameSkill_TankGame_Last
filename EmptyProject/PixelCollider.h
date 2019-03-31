@@ -9,9 +9,10 @@ public:
 	int iHeight = 0;
 
 
-	PIXELTYPE eCallType = e_none;
-	function<void()> funcMagenta = nullptr;
-	function<void()> funcRed = nullptr;
+	PIXELTYPE eCallTypeLeft = e_none;
+	PIXELTYPE eCallTypeRight = e_none;
+	
+	function<void()> funcCall = nullptr;
 public:
 	PixelCollider();
 	virtual ~PixelCollider();
@@ -21,6 +22,6 @@ public:
 	virtual void Update()	override;
 
 public:
-	bool  CheckHeight(Vector3 & vPos);
+	bool  CheckHeight(Vector3 & vPos, PIXELTYPE & eType);
 };
 

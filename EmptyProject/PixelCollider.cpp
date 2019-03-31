@@ -27,10 +27,11 @@ void PixelCollider::Update()
 	Vector3 vTempLeft = transform->vPos + vLeft;
 	Vector3 vTempRight = transform->vPos + vRight;
 
-	eCallType = e_none;
+	eCallTypeLeft = e_none;
+	eCallTypeRight = e_none;
 	
-	bool bLeft = CheckHeight(vTempLeft);
-	bool bRight = CheckHeight(vTempRight);
+	bool bLeft = CheckHeight(vTempLeft, eCallTypeLeft);
+	bool bRight = CheckHeight(vTempRight, eCallTypeRight);
 
 	if (bLeft || bRight)
 	{
@@ -39,26 +40,33 @@ void PixelCollider::Update()
 		D3DXVec3Lerp(&vCenter, &vTempLeft, &vTempRight, 0.5f);
 
 		transform->vPos.y = vCenter.y;
-		transform->vRot.x = -D3DXToRadian(vTempRight.y - vTempLeft.y) * 10.f;
+		/*
+		float fAngle = -D3DXToRadian(vTempRight.y - vTempLeft.y);
 
-		switch (eCallType)
-		{
-		case e_red:
-			if (funcRed)
-				funcRed();
-			break;
-		case e_magenta:
-			if (funcMagenta)
-				funcMagenta();
-				break;
-		default:
-			break;
-		}
+		Vector3 vDir(1.f, 0.f, 0.f);
+
+		Matrix matRot;
+		D3DXMatrixRotationQuaternion(&matRot, &transform->qRot);
+		D3DXVec3TransformNormal(&vDir, &vDir, &matRot);
+
+		Vector3 vRight(0.f, 0.f, 0.f);
+		D3DXVec3Cross(&vRight, &vDir, &Vector3(0.f, 1.f, 0.f));
+		
+		Matrix matRightRot;
+		D3DXMatrixRotationAxis(&matRightRot, &vRight, fAngle);
+
+		matRot = matRightRot * matRot;
+		D3DXQuaternionRotationMatrix(&transform->qRot, &matRot);
+		*/
+
+		
+		if (funcCall)
+			funcCall();
 	}
 
 }
 
-bool PixelCollider::CheckHeight(Vector3 & vPos)
+bool PixelCollider::CheckHeight(Vector3 & vPos, PIXELTYPE & eType)
 {
 	int iWidth = MAP->iWidth;
 	if (iWidth <= vPos.x && vPos.x < 0)
@@ -71,11 +79,7 @@ bool PixelCollider::CheckHeight(Vector3 & vPos)
 	{
 		vPos.y = Height.second + iHeight;
 
-		if (Height.first == e_red)
-			eCallType = e_red;
-		if (Height.first == e_magenta)
-			eCallType = e_magenta;
-
+		eType = Height.first;
 		return true;
 	}
 

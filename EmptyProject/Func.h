@@ -7,6 +7,8 @@ void LoadTexs(vector<texture*> & veTex, RefStr key, int min, int max);
 void LoadMeshs(RefStr key, RefStr path, int min, int max);
 void LoadMeshs(vector<CMeshLoader*> & veTex, RefStr key, int min, int max);
 
+
+
 template <class T>
 float GetLength(const T & start, const T & end)
 {
@@ -85,3 +87,5 @@ Vector3 inline GetRandomNumber < Vector3 >(Vector3 mn, Vector3 mx)
 }
 void GetLookAt(Quaternion &qRot, const Vector3 & vDir);
 void GetLookAtS(Quaternion & qRot, const Vector3 & vDir, float _fS);
+
+void WorldTo2D(Vector3 & vResult, const Vector3 & vPos);

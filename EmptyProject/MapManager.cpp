@@ -2,6 +2,10 @@
 #include "MapManager.h"
 #include "Map01.h"
 #include "PlayerTank.h"
+#include "SkyBox.h"
+#include "CheckPoint.h"
+#include "Stone.h"
+
 MapManager::MapManager()
 {
 }
@@ -18,13 +22,14 @@ void MapManager::ResetMap()
 
 void MapManager::LoadStage01()
 {
+	AddObject(SkyBox);
 	lpMap = AddObject(Map01);
 	lpMap->transform->vScale.z = -1.f;
-	lpMap->transform->vPos = Vector3(0.f, 25.f, 0.f);
+	lpMap->transform->vPos = Vector3(20.f, 25.f, 0.f);
 	
 	SetHieghtMap(GetTex(L"Stage01Height"));
 	SetWidthMap(GetTex(L"Stage01Width"));
-	lpTank->transform->vPos = Vector3(vWidthMap[0].x, vHeightMap[0].second, vWidthMap[0].z);
+	lpTank->vSpawnPos = lpTank->transform->vPos = Vector3(vWidthMap[0].x, vHeightMap[0].second, vWidthMap[0].z);
 }
 
 void MapManager::LoadStaga02()
@@ -48,7 +53,19 @@ void MapManager::SetWidthMap(texture * lpWidthMap)
 			D3DXCOLOR color = pColor[(iWidth * z) + x];
 
 			if (color == D3DXCOLOR(0.f, 1.f, 0.f, 1.f))
+			{
+				CheckPoint * check = AddObject(CheckPoint);
+				check->transform->vPos = Vector3(x, vHeightMap[x].second, (z - (float)iHeight / 2.f) * -1);
+				check->lpPlayer = lpTank;
+
 				vWidthMap.push_back(Vector3(x, vHeightMap[x].second, (z - (float)iHeight / 2.f) * -1));
+			}
+
+			if (color == D3DXCOLOR(0.f, 0.f, 1.f, 1.f))
+			{
+				Stone * lpStone = AddObject(Stone);
+				lpStone->transform->vPos = Vector3(x, vHeightMap[x].second, (z - (float)iHeight / 2.f) * -1);
+			}
 		}
 	}
 }

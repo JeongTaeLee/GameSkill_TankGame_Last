@@ -57,9 +57,6 @@
     <Filter Include="Scene\Stage01">
       <UniqueIdentifier>{fe55d987-ebc9-4108-8884-65966ad33b69}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\LoadingScene">
-      <UniqueIdentifier>{05f30240-e3e0-4f7a-98b6-3dfac8428497}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Func">
       <UniqueIdentifier>{3fc6542e-3b35-4189-84de-14ef566bab14}</UniqueIdentifier>
     </Filter>
@@ -86,6 +83,45 @@
     </Filter>
     <Filter Include="Component\PixelCollider">
       <UniqueIdentifier>{d7dc209d-16bf-4e46-8185-4ff7624cd6ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Player\PlayerBullet">
+      <UniqueIdentifier>{91d1e629-d3ae-4a3a-9c21-ec616f626d66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider">
+      <UniqueIdentifier>{149256ce-3e75-4cb6-912f-93263e454f90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\DebugCollider">
+      <UniqueIdentifier>{b2100afe-3431-4a6e-8597-047ea49b934e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Player\PlayerGun">
+      <UniqueIdentifier>{496a36b9-31a2-4571-b139-1e3f5e1ea492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\CheckPoint">
+      <UniqueIdentifier>{cd6efef1-19c1-4fb6-83ef-41b0430f336a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Monster">
+      <UniqueIdentifier>{bb65d37b-2ada-4b42-bb3c-a580d6267d89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Monster\MonsterA">
+      <UniqueIdentifier>{2ef983ae-8134-4483-ab17-581174e3b342}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Monster\MonsterSpawn">
+      <UniqueIdentifier>{cd26d9ab-bbf8-44c1-b818-8676756bec5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\SkyBox">
+      <UniqueIdentifier>{e2e5d6ba-29a0-4bdc-83d8-635a2aca8ad3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Stone">
+      <UniqueIdentifier>{ad2dfaf0-b7d9-4c3b-b33d-8461dea89ae8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\LockOnCrossHair">
+      <UniqueIdentifier>{c966f938-d769-4424-a62c-fe260f2c785d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\LoadingScene">
+      <UniqueIdentifier>{05f30240-e3e0-4f7a-98b6-3dfac8428497}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Item">
+      <UniqueIdentifier>{b6d97140-30fa-41e6-899c-3aff63cf8667}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +257,42 @@
     <ClCompile Include="PixelCollider.cpp">
       <Filter>Component\PixelCollider</Filter>
     </ClCompile>
+    <ClCompile Include="SkyBox.cpp">
+      <Filter>GameObject\SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBullet.cpp">
+      <Filter>GameObject\Player\PlayerBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugCollider.cpp">
+      <Filter>Component\DebugCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerGun.cpp">
+      <Filter>GameObject\Player\PlayerGun</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckPoint.cpp">
+      <Filter>GameObject\CheckPoint</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>GameObject\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterA.cpp">
+      <Filter>GameObject\Monster\MonsterA</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterSpawn.cpp">
+      <Filter>GameObject\Monster\MonsterSpawn</Filter>
+    </ClCompile>
+    <ClCompile Include="Stone.cpp">
+      <Filter>GameObject\Stone</Filter>
+    </ClCompile>
+    <ClCompile Include="LockOnCrossHair.cpp">
+      <Filter>GameObject\LockOnCrossHair</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>GameObject\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -299,6 +371,42 @@
     <ClInclude Include="PixelCollider.h">
       <Filter>Component\PixelCollider</Filter>
     </ClInclude>
+    <ClInclude Include="SkyBox.h">
+      <Filter>GameObject\SkyBox</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerBullet.h">
+      <Filter>GameObject\Player\PlayerBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugCollider.h">
+      <Filter>Component\DebugCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerGun.h">
+      <Filter>GameObject\Player\PlayerGun</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckPoint.h">
+      <Filter>GameObject\CheckPoint</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>GameObject\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterA.h">
+      <Filter>GameObject\Monster\MonsterA</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterSpawn.h">
+      <Filter>GameObject\Monster\MonsterSpawn</Filter>
+    </ClInclude>
+    <ClInclude Include="Stone.h">
+      <Filter>GameObject\Stone</Filter>
+    </ClInclude>
+    <ClInclude Include="LockOnCrossHair.h">
+      <Filter>GameObject\LockOnCrossHair</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>GameObject\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
@@ -309,5 +417,8 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Lighting.fx">
+      <Filter>Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

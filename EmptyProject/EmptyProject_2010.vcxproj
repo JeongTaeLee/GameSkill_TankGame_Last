@@ -390,18 +390,28 @@
   <ItemGroup>
     <ClCompile Include="Animater.cpp" />
     <ClCompile Include="CameraManger.cpp" />
+    <ClCompile Include="CheckPoint.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="DebugCollider.cpp" />
     <ClCompile Include="Func.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="LoadingScene.cpp" />
+    <ClCompile Include="LockOnCrossHair.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Map01.cpp" />
     <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="MeshLoader.cpp" />
+    <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="MonsterA.cpp" />
+    <ClCompile Include="MonsterSpawn.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="PixelCollider.cpp" />
+    <ClCompile Include="PlayerBullet.cpp" />
+    <ClCompile Include="PlayerGun.cpp" />
     <ClCompile Include="PlayerTank.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
@@ -409,23 +419,35 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="ShaderRenderer.cpp" />
+    <ClCompile Include="SkyBox.cpp" />
     <ClCompile Include="Stage01.cpp" />
+    <ClCompile Include="Stone.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="UIRenderer.cpp" />
     <ClInclude Include="Animater.h" />
     <ClInclude Include="CameraManger.h" />
+    <ClInclude Include="CheckPoint.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="DebugCollider.h" />
     <ClInclude Include="Func.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="LoadingScene.h" />
+    <ClInclude Include="LockOnCrossHair.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Map01.h" />
     <ClInclude Include="MapManager.h" />
     <ClInclude Include="MeshLoader.h" />
+    <ClInclude Include="Monster.h" />
+    <ClInclude Include="MonsterA.h" />
+    <ClInclude Include="MonsterSpawn.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="PixelCollider.h" />
+    <ClInclude Include="PlayerBullet.h" />
+    <ClInclude Include="PlayerGun.h" />
     <ClInclude Include="PlayerTank.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceManager.h" />
@@ -434,7 +456,9 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="ShaderRenderer.h" />
     <ClInclude Include="singleton.h" />
+    <ClInclude Include="SkyBox.h" />
     <ClInclude Include="Stage01.h" />
+    <ClInclude Include="Stone.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="UIRenderer.h" />
     <None Include="DXUT\Optional\directx.ico" />
@@ -463,6 +487,11 @@
     <ClCompile Include="EmptyProject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Lighting.fx">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Profile|Win32'">true</ExcludedFromBuild>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

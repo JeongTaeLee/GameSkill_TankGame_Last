@@ -8,6 +8,8 @@ public:
 	Map();
 	virtual ~Map();
 
+	virtual void Init()	override;
+
 
 };
 

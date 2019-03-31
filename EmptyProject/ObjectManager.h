@@ -4,6 +4,7 @@
 class GameObject;
 class Renderer;
 class UIRenderer;
+class Collider;
 
 class ObjectManager :
 	public singleton<ObjectManager>
@@ -12,6 +13,7 @@ public:
 	list<GameObject*> liGameObject;
 	list<Renderer*> liRenderer;
 	list<UIRenderer*> liUIRenderer;
+	list<Collider*> liCollider;
 public:
 	ObjectManager();
 	virtual ~ObjectManager();
@@ -34,6 +36,10 @@ public:
 public:	
 	Renderer * AddRenderer(Renderer * _renderer);
 	UIRenderer * AddUIRenderer(UIRenderer * _renderer);
+
+	Collider * AddCollider(Collider * lpCollider);
+	void  DeleteCollider(Collider * lpCollider);
+
 
 	void DeleteRenderer(Renderer * _renderer);
 	void DeleteUIRenderer(UIRenderer * _UIrenderer);
