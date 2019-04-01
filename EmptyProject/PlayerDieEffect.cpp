@@ -51,7 +51,7 @@ void PlayerDieEffect::Update()
 		iCount++;
 	}
 	else
-		fElapsd += Et;
+		fElapsd += Et();
 }
 
 void PlayerDieEffect::SetPlayerDieEffect(PLAYERTYPE _eType, RefV3 vPos)

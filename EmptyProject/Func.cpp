@@ -26,7 +26,7 @@ void LoadTexs(vector<texture*>& veTex, RefStr keys, int min, int max)
 	}
 }
 
-void LoadMeshs(RefStr keys, RefStr paths, int min, int max)
+void LoadMeshs(RefStr keys, RefStr paths, RefStr mtlName, int min, int max)
 {
 	for (int i = min; i <= max; ++i)
 	{
@@ -36,7 +36,7 @@ void LoadMeshs(RefStr keys, RefStr paths, int min, int max)
 		wchar_t path[256];
 		swprintf(path, paths.c_str(), i);
 
-		RESOURCE->AddMesh(key, path);
+		RESOURCE->AddMesh(key, path, mtlName);
 	}
 }
 
@@ -117,7 +117,6 @@ void CreateExplosionA(RefV3 vPos)
 	float fSize = GetRandomNumber(20.f, 30.f);
 	lpEffect->transform->vScale = Vector3(fSize, fSize, 1.f);
 	lpEffect->transform->vPos = vPos;
-
 }
 
 void CreateExplosionB(RefV3 vPos)

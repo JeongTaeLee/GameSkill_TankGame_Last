@@ -42,14 +42,6 @@ CMeshLoader::~CMeshLoader()
 //--------------------------------------------------------------------------------------
 void CMeshLoader::Destroy()
 {
-    for( int iMaterial = 0; iMaterial < m_Materials.GetSize(); iMaterial++ )
-    {
-        Material* pMaterial = m_Materials.GetAt( iMaterial );
-
-		SAFE_DELETE(pMaterial);
-    }
-
-    m_Materials.RemoveAll();
     m_Vertices.RemoveAll();
     m_Indices.RemoveAll();
     m_Attributes.RemoveAll();
@@ -59,7 +51,7 @@ void CMeshLoader::Destroy()
 
 
 //--------------------------------------------------------------------------------------
-HRESULT CMeshLoader::Create( const WCHAR* strFilename )
+HRESULT CMeshLoader::Create( const WCHAR* strFilename, RefStr mtlFileName)
 {
     HRESULT hr;
     // Start clean
@@ -69,7 +61,7 @@ HRESULT CMeshLoader::Create( const WCHAR* strFilename )
     // Load the vertex buffer, index buffer, and subset information from a file. In this case, 
     // an .obj file was chosen for simplicity, but it's meant to illustrate that ID3DXMesh objects
     // can be filled from any mesh file format once the necessary data is extracted from file.
-    V_RETURN( LoadGeometryFromOBJ( strFilename ) );
+    V_RETURN( LoadGeometryFromOBJ( strFilename, mtlFileName) );
 
     // Create the encapsulated mesh
     ID3DXMesh* pMesh = NULL;
@@ -116,7 +108,7 @@ HRESULT CMeshLoader::Create( const WCHAR* strFilename )
 
 
 //--------------------------------------------------------------------------------------
-HRESULT CMeshLoader::LoadGeometryFromOBJ( const WCHAR* strFileName )
+HRESULT CMeshLoader::LoadGeometryFromOBJ( const WCHAR* strFileName, RefStr mtlFileName)
 {
 	wstring strMaterialFilename;
 	wstring strObjFileName = strFileName;
@@ -220,6 +212,13 @@ HRESULT CMeshLoader::LoadGeometryFromOBJ( const WCHAR* strFileName )
 			
 			int index = strObjFileName.rfind(L"/");
 			strMaterialFilename = strObjFileName.substr(0, index + 1) + strMaterialFilename;
+		
+			if (mtlFileName == L"None")
+				m_Materials = RESOURCE->AddMaterial(strMaterialFilename, strMaterialFilename);
+			else
+				m_Materials = RESOURCE->AddMaterial(mtlFileName, strMaterialFilename);
+
+
         }
         else if( 0 == wcscmp( strCommand, L"usemtl" ) )
         {
@@ -227,30 +226,14 @@ HRESULT CMeshLoader::LoadGeometryFromOBJ( const WCHAR* strFileName )
             WCHAR strName[MAX_PATH] = {0};
             InFile >> strName;
 
-            bool bFound = false;
-            for( int iMaterial = 0; iMaterial < m_Materials.GetSize(); iMaterial++ )
+            for( int iMaterial = 0; iMaterial < m_Materials->size(); iMaterial++ )
             {
-                Material* pCurMaterial = m_Materials.GetAt( iMaterial );
+				Material* pCurMaterial = (*m_Materials)[iMaterial];
                 if( 0 == wcscmp( pCurMaterial->strName.c_str(), strName ) )
                 {
-                    bFound = true;
                     dwCurSubset = iMaterial;
                     break;
                 }
-            }
-
-            if( !bFound )
-            {
-                Material * pMaterial = new Material();
-
-                if( pMaterial == NULL )
-                    return E_OUTOFMEMORY;
-
-				LoadMaterialsFromMTL(strMaterialFilename, strName, pMaterial);
-
-				dwCurSubset = m_Materials.GetSize();
-
-                m_Materials.Add( pMaterial );
             }
         }
         InFile.ignore( 1000, '\n' );
@@ -358,63 +341,63 @@ void CMeshLoader::DeleteCache()
 
 
 //--------------------------------------------------------------------------------------
-HRESULT CMeshLoader::LoadMaterialsFromMTL( wstring strFileName, wstring strMaterialName, Material * pMaterial )
-{
-    // File input
-    WCHAR strCommand[256] = {0};
-    wifstream InFile( strFileName );
-    if( !InFile )
-        return DXTRACE_ERR( L"wifstream::open", E_FAIL );
-
-	bool bFound = false;
-    for(; ; )
-    {
-        InFile >> strCommand;
-        if( !InFile )
-            break;
-
-		if (0 == wcscmp(strCommand, L"newmtl") && !bFound)
-		{
-			InFile >> strCommand;
-
-			if (0 == wcscmp(strCommand, strMaterialName.c_str()))
-				bFound = true;
-        }
-		else if (0 == wcscmp(strCommand, L"newmtl") && bFound)
-		{
-			break;
-		}
-		else if (0 == wcscmp(strCommand, L"map_Kd"))
-		{
-			InFile >> strCommand;
-
-			int index = strFileName.rfind(L"/");
-			
-			wstring imagePath = strFileName.substr(0, index + 1) + strCommand;
-			
-			index = imagePath.rfind(L".");
-			imagePath = imagePath.substr(0, index + 1) + L"png";
-		
-			pMaterial->lpDiffuse = AdTex(imagePath, imagePath);
-		}
-		else if (0 == wcscmp(strCommand, L"map_Ks"))
-		{
-			InFile >> strCommand;
-
-			int index = strFileName.rfind(L"/");
-
-			wstring imagePath = strFileName.substr(0, index + 1) + strCommand;
-
-			index = imagePath.rfind(L".");
-			imagePath = imagePath.substr(0, index + 1) + L"png";
-
-			pMaterial->lpSpecular = AdTex(imagePath, imagePath);
-		}
-
-        InFile.ignore( 1000, L'\n' );
-    }
-
-    InFile.close();
-
-    return S_OK;
-}
+//HRESULT CMeshLoader::LoadMaterialsFromMTL( wstring strFileName, wstring strMaterialName, Material * pMaterial )
+//{
+//    // File input
+//    WCHAR strCommand[256] = {0};
+//    wifstream InFile( strFileName );
+//    if( !InFile )
+//        return DXTRACE_ERR( L"wifstream::open", E_FAIL );
+//
+//	bool bFound = false;
+//    for(; ; )
+//    {
+//        InFile >> strCommand;
+//        if( !InFile )
+//            break;
+//
+//		if (0 == wcscmp(strCommand, L"newmtl") && !bFound)
+//		{
+//			InFile >> strCommand;
+//
+//			if (0 == wcscmp(strCommand, strMaterialName.c_str()))
+//				bFound = true;
+//        }
+//		else if (0 == wcscmp(strCommand, L"newmtl") && bFound)
+//		{
+//			break;
+//		}
+//		else if (0 == wcscmp(strCommand, L"map_Kd"))
+//		{
+//			InFile >> strCommand;
+//
+//			int index = strFileName.rfind(L"/");
+//			
+//			wstring imagePath = strFileName.substr(0, index + 1) + strCommand;
+//			
+//			index = imagePath.rfind(L".");
+//			imagePath = imagePath.substr(0, index + 1) + L"png";
+//		
+//			pMaterial->lpDiffuse = AdTex(imagePath, imagePath);
+//		}
+//		else if (0 == wcscmp(strCommand, L"map_Ks"))
+//		{
+//			InFile >> strCommand;
+//
+//			int index = strFileName.rfind(L"/");
+//
+//			wstring imagePath = strFileName.substr(0, index + 1) + strCommand;
+//
+//			index = imagePath.rfind(L".");
+//			imagePath = imagePath.substr(0, index + 1) + L"png";
+//
+//			pMaterial->lpSpecular = AdTex(imagePath, imagePath);
+//		}
+//
+//        InFile.ignore( 1000, L'\n' );
+//    }
+//
+//    InFile.close();
+//
+//    return S_OK;
+//}

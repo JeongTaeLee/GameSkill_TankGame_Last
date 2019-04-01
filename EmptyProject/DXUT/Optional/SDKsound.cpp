@@ -86,7 +86,7 @@ HRESULT CSoundManager::SetPrimaryBufferFormat( DWORD dwPrimaryChannels,
     DSBUFFERDESC dsbd;
     ZeroMemory( &dsbd, sizeof( DSBUFFERDESC ) );
     dsbd.dwSize = sizeof( DSBUFFERDESC );
-    dsbd.dwFlags = DSBCAPS_PRIMARYBUFFER;
+    dsbd.dwFlags = DSBCAPS_PRIMARYBUFFER | DSBCAPS_CTRLVOLUME;
     dsbd.dwBufferBytes = 0;
     dsbd.lpwfxFormat = NULL;
 
@@ -725,10 +725,10 @@ HRESULT CSound::Play( DWORD dwPriority, DWORD dwFlags, LONG lVolume, LONG lFrequ
             return DXUT_ERR( L"FillBufferWithSound", hr );
     }
 
-    if( m_dwCreationFlags & DSBCAPS_CTRLVOLUME )
-    {
-        pDSB->SetVolume( lVolume );
-    }
+	//if (m_dwCreationFlags & DSBCAPS_CTRLVOLUME)
+	//{
+		pDSB->SetVolume(lVolume);
+	//}
 
     if( lFrequency != -1 &&
         ( m_dwCreationFlags & DSBCAPS_CTRLFREQUENCY ) )

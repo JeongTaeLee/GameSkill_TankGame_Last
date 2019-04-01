@@ -4,6 +4,9 @@
 #include "LockOnCrossHair.h"
 #include "MosnterDieEffect.h"
 #include "Item.h"
+#include "PlayerTank.h"
+#include "PlayerUI.h"
+
 Monster::Monster()
 {
 	sTag = "Monster";
@@ -27,11 +30,32 @@ void Monster::Release()
 		lpLockOnHair->bDestroy = true;
 }
 
+void Monster::HommingCheck()
+{
+	Vector3 v2Dpos = Vector3(0.f, 0.f, 0.f);
+	WorldTo2D(v2Dpos, transform->vPos);
+
+	Vector2 vMousePos = INPUT->GetMPos();
+	float fLegnth = GetLength(Vector3(vMousePos.x, vMousePos.y, 0.f), v2Dpos);
+
+	if (fLegnth < 30.f)
+	{
+		if (KEYDOWN(VK_LBUTTON))
+			lpPlayer->FireHommingMissile(this);
+	}
+}
+
 void Monster::CreateItem()
 {
-	ITEMTYPE item = (ITEMTYPE)GetRandomNumber((int)ITEMTYPE::ITEM_D, (int)ITEMTYPE::ITEM_U);
+	int fRandom = GetRandomNumber(0, 100);
 
-	AddObject(Item)->SetItem(transform->vPos, item);
+	if (fRandom < 50)
+	{
+		ITEMTYPE item = (ITEMTYPE)GetRandomNumber((int)ITEMTYPE::ITEM_D, (int)ITEMTYPE::ITEM_U);
+		Item * item_ = AddObject(Item);
+		item_->SetItem(transform->vPos, item);
+		item_->lpTank = lpPlayer;
+	}
 }
 
 void Monster::ReceiveCollider(Collider * lpOther)
@@ -39,13 +63,14 @@ void Monster::ReceiveCollider(Collider * lpOther)
 	if (bDestroy)
 		return;
 
-
-	if (lpOther->gameObject->sTag == "NuClear")
+	if (lpOther->gameObject->sTag == "NuClear" || lpOther->gameObject->sTag == "Homming")
 	{
 		iLife = 0;
 
 		if (iLife <= 0)
 		{
+			lpPlayer->lpPlayerUI->AddScore(100.f);
+
 			AddObject(MosnterDieEffect)->SetMonsterDieEffect(eMonsterType, transform->vPos, Vector3(0.2f, 0.2f, 0.2f));
 			CreateItem();
 			bDestroy = true;
@@ -58,6 +83,8 @@ void Monster::ReceiveCollider(Collider * lpOther)
 
 		if (iLife <= 0)
 		{
+			lpPlayer->lpPlayerUI->AddScore(100.f);
+
 			AddObject(MosnterDieEffect)->SetMonsterDieEffect(eMonsterType, transform->vPos, Vector3(0.2f, 0.2f, 0.2f));
 			CreateItem();
 			bDestroy = true;

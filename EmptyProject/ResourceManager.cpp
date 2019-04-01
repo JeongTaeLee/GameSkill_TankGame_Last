@@ -41,10 +41,18 @@ ResourceManager::~ResourceManager()
 
 void ResourceManager::Reset()
 {
-
 	for (auto Iter : mTexs)
 		SAFE_DELETE(Iter.second);
 	mTexs.clear();
+
+	for (auto Iter : mMaterial)
+	{
+		for (auto Iter02 : (*Iter.second))
+			SAFE_DELETE(Iter02);
+
+		SAFE_DELETE(Iter.second);
+	}
+	mMaterial.clear();
 
 	for (auto Iter : mMeshs)
 		SAFE_DELETE(Iter.second);
@@ -82,15 +90,81 @@ void ResourceManager::DestroyTex(RefStr key)
 	}
 }
 
-CMeshLoader * ResourceManager::AddMesh(RefStr key, RefStr path)
+CMeshLoader * ResourceManager::AddMesh(RefStr key, RefStr path, RefStr mtlName)
 {
 	if (auto find = mMeshs.find(key); find != mMeshs.end())
 		return find->second;
 
 	CMeshLoader * loader = new CMeshLoader;
-	loader->Create(path.c_str());
+	loader->Create(path.c_str(), mtlName);
 
 	return mMeshs.insert(make_pair(key, loader)).first->second;
+}
+
+vector<Material*>* ResourceManager::AddMaterial(RefStr key, RefStr strFileName)
+{
+	if (auto find = mMaterial.find(key); find != mMaterial.end())
+		return find->second;
+
+	vector<Material*> * vMaterial = new vector<Material*>;
+
+	WCHAR strCommand[256] = { 0 };
+	wifstream InFile(strFileName);
+	if (!InFile)
+	{
+		DEBUG_LOGW("Failed Material Load : " << key << ", " << strFileName);
+		return nullptr;
+	}
+	
+	Material * pMaterial = nullptr;
+	bool bFound = false;
+	for (; ; )
+	{
+		InFile >> strCommand;
+		if (!InFile)
+			break;
+
+		if (0 == wcscmp(strCommand, L"newmtl"))
+		{
+			pMaterial = new Material;
+			vMaterial->push_back(pMaterial);
+
+			InFile >> strCommand;
+			pMaterial->strName = strCommand;
+		}
+		else if (0 == wcscmp(strCommand, L"map_Kd"))
+		{
+			InFile >> strCommand;
+
+			int index = strFileName.rfind(L"/");
+
+			wstring imagePath = strFileName.substr(0, index + 1) + strCommand;
+
+			index = imagePath.rfind(L".");
+			imagePath = imagePath.substr(0, index + 1) + L"png";
+
+			pMaterial->lpDiffuse = AdTex(imagePath, imagePath);
+		}
+		else if (0 == wcscmp(strCommand, L"map_Ks"))
+		{
+			InFile >> strCommand;
+
+			int index = strFileName.rfind(L"/");
+
+			wstring imagePath = strFileName.substr(0, index + 1) + strCommand;
+
+			index = imagePath.rfind(L".");
+			imagePath = imagePath.substr(0, index + 1) + L"png";
+
+			pMaterial->lpSpecular = AdTex(imagePath, imagePath);
+		}
+
+		InFile.ignore(1000, L'\n');
+	}
+
+	InFile.close();
+
+	return mMaterial.insert(make_pair(key, vMaterial)).first->second;
 }
 
 LPD3DXEFFECT ResourceManager::AddEffect(RefStr key, RefStr path)

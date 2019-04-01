@@ -1,12 +1,14 @@
 #pragma once
 #include "GameObject.h"
 
+class PlayerTank;
 class LockOnCrossHair;
 
 class Stone :
 	public GameObject
 {
 public:
+	PlayerTank * lpPlayer = nullptr;
 	LockOnCrossHair * lpLockOnCrossHair = nullptr;
 	
 	int iLife = 5;

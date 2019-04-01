@@ -4,11 +4,15 @@
 class ItemUI :
 	public GameObject
 {
+private:
+	float fDelay = 1.f;
+	float fElapsed = 0.f;
 public:
 	ItemUI();
 	virtual ~ItemUI();
 
-	void SetItemUI(ITEMTYPE eItemType);
+	virtual void Update() override;
 
+	void SetItemUI(ITEMTYPE eItemType);
 };
 

@@ -24,6 +24,8 @@ public:
 	vector<Vector3> vWidthMap;
 	int iWidthIndex = 0;
 	
+	vector< pair< wstring, int> > liScores;
+
 	int iScore = 0;
 public:
 	MapManager();
@@ -36,6 +38,11 @@ public:
 
 	void SetWidthMap(texture * lpWidthMap);
 	void SetHieghtMap(texture * lpHeightMap);
+
+	int GetBastScore();
+
+	void SaveScore(wstring strName, int iScore);
+	void LoadScore();
 };
 
 #define MAP MapManager::Getinst()

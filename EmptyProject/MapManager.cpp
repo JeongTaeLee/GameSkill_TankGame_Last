@@ -5,6 +5,13 @@
 #include "SkyBox.h"
 #include "CheckPoint.h"
 #include "Stone.h"
+#include "Map02.h"
+
+bool ScoreSotring(pair<wstring, int> & s1, pair<wstring, int> & s2)
+{
+	return s1.second > s2.second;
+}
+
 
 MapManager::MapManager()
 {
@@ -17,11 +24,20 @@ MapManager::~MapManager()
 
 void MapManager::ResetMap()
 {
-	SAFE_DELETE_ARRAY(lpMap);
+	lpMap = nullptr;
+
+	vHeightMap.clear();
+
+	iWidth = 0;
+
+	vWidthMap.clear();
+	iWidthIndex = 0;
 }
 
 void MapManager::LoadStage01()
 {
+	ResetMap();
+
 	AddObject(SkyBox);
 	lpMap = AddObject(Map01);
 	lpMap->transform->vScale.z = -1.f;
@@ -34,6 +50,16 @@ void MapManager::LoadStage01()
 
 void MapManager::LoadStaga02()
 {
+	ResetMap();
+
+	AddObject(SkyBox);
+	lpMap = AddObject(Map02);
+	lpMap->transform->vScale.z = -1.f;
+	lpMap->transform->vPos = Vector3(22.f, 35.f, 0.f);
+
+	SetHieghtMap(GetTex(L"Stage02Height"));
+	SetWidthMap(GetTex(L"Stage02Width"));
+	lpTank->vSpawnPos = lpTank->transform->vPos = Vector3(vWidthMap[0].x, vHeightMap[0].second, vWidthMap[0].z);
 }
 
 void MapManager::SetWidthMap(texture * lpWidthMap)
@@ -45,6 +71,8 @@ void MapManager::SetWidthMap(texture * lpWidthMap)
 	lpWidthMap->lpTex->LockRect(0, &locked, nullptr, D3DLOCK_DISCARD);
 
 	DWORD * pColor = (DWORD*)locked.pBits;
+
+	bool bFirst = false;
 
 	for (int x = 0; x < iWidth; ++x)
 	{
@@ -59,6 +87,12 @@ void MapManager::SetWidthMap(texture * lpWidthMap)
 				check->lpPlayer = lpTank;
 
 				vWidthMap.push_back(Vector3(x, vHeightMap[x].second, (z - (float)iHeight / 2.f) * -1));
+				
+				if (!bFirst)
+				{
+					check->bPass = true;
+					bFirst = true;
+				}
 			}
 
 			if (color == D3DXCOLOR(0.f, 0.f, 1.f, 1.f))
@@ -97,5 +131,58 @@ void MapManager::SetHieghtMap(texture * lpHeightMap)
 				break;
 			}
 		}
+	}
+}
+
+int MapManager::GetBastScore()
+{
+	if(liScores.size() != 0)
+		return liScores[0].second;
+
+	return 0;
+}
+
+void MapManager::SaveScore(wstring strName, int iScore)
+{
+	for (auto Iter = liScores.begin(); Iter != liScores.end();)
+	{
+		if (Iter->first == strName)
+		{
+			Iter = liScores.erase(Iter);
+		}
+		else
+			++Iter;
+	}
+
+	liScores.push_back(make_pair(strName, iScore));
+
+	sort(liScores.begin(), liScores.end(), ScoreSotring);
+
+	wofstream output;
+	output.open(L"./rs/score.txt", ios::trunc);
+
+	for (auto Iter : liScores)
+	{
+		output << Iter.first << " " << Iter.second << endl;
+	}
+
+	output.close();
+}
+
+void MapManager::LoadScore()
+{
+	wifstream input;
+	input.open(L".rs/score.txt");
+
+	while (!input.eof())
+	{
+		wstring name; int score;
+
+		input >> name >> score;
+
+		if (name == L"" || name == L" ")
+			continue;
+
+		liScores.push_back(make_pair(name, score));
 	}
 }

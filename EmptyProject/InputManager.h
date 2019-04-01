@@ -11,6 +11,7 @@ public:
 	virtual ~InputManager();
 
 	void Update();
+	int GetInputKey();
 
 	Vector2 GetMPos();
 

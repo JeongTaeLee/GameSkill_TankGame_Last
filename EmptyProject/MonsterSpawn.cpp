@@ -60,6 +60,6 @@ void MonsterSpawn::Update()
 			}
 		}
 		else
-			fCreateElapsed += Et;
+			fCreateElapsed += Et();
 	}
 }

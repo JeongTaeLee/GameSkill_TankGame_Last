@@ -49,6 +49,9 @@ public:
 
 	int iLife = 3;
 
+	
+	bool bGameEnd = false;
+	bool bLifeInfinity = false;
 	bool bBack = false;
 	bool bMove = false;
 	bool bOnFloor = false;
@@ -62,10 +65,11 @@ public:
 	float fSpawnDelay = 2.f;
 	float fSpawnElapsed = 0.f;
 
-	Vector3 vLookDir = Vector3(0.f, 0.f, 0.f);
 
+
+	Vector3 vLookDir = Vector3(0.f, 0.f, 0.f);
 public:
-	int iHommingCount = 0;
+	int iHommingCount = 5;
 	
 	int iNuClearCount = 2;
 	float fNuClearDelay = 5.f;

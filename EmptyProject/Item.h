@@ -16,6 +16,8 @@ class Item :
 	public GameObject
 {
 public:
+	PlayerTank * lpTank = nullptr;
+
 	ITEMTYPE eType = ITEM_D;
 
 	function < void(PlayerTank * tank) > func = nullptr;
@@ -24,7 +26,8 @@ public:
 	virtual ~Item();
 
 	virtual void Init()	override;
-	
+	virtual void Update()	override;
+
 	void SetItem(RefV3 vPos, ITEMTYPE _eType);
 
 	virtual void ReceiveCollider(Collider * lpOther) override;

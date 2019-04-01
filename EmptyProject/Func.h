@@ -4,7 +4,7 @@ void LoadTexs(RefStr key, RefStr path, int min, int max);
 void LoadTexs(vector<texture*> & veTex, RefStr key, int min, int max);
 
 
-void LoadMeshs(RefStr key, RefStr path, int min, int max);
+void LoadMeshs(RefStr key, RefStr path, RefStr mtlName, int min, int max);
 void LoadMeshs(vector<CMeshLoader*> & veTex, RefStr key, int min, int max);
 
 

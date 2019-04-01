@@ -25,7 +25,7 @@ void ExplosionEffect::Update()
 		lpBBRenderer->lpEffectTex = veTexs[iCount];
 	}
 	else
-		fElapsed += Et;
+		fElapsed += Et();
 	
 }
 

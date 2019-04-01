@@ -28,11 +28,11 @@ void RigidBody::Update()
 	if (bUseGravity)
 		vForce += vGravity * fMass;
 
-	vVelocity += vForce * Et;
+	vVelocity += vForce;
 	vForce = Vector3(0.f, 0.f, 0.f);
 
 	vDir = transform->vPos;
-	transform->vPos += vVelocity;
+	transform->vPos += vVelocity * Et();
 	vDir = transform->vPos - vDir;
 	D3DXVec3Normalize(&vDir, &vDir);
 

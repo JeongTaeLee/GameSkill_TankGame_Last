@@ -1,6 +1,7 @@
 #include "DXUT.h"
 #include "PlayerGun.h"
 #include "PlayerBullet.h"
+#include "PlayerTank.h"
 
 PlayerGun::PlayerGun()
 {
@@ -17,6 +18,8 @@ void PlayerGun::Init()
 	lpShaderRenderer->lpEffect = GetEffect(L"Lighting");
 
 	lpA = GetMesh_(L"PlayerA_H");
+	lpB = GetMesh_(L"PlayerB_H");
+	lpC = GetMesh_(L"PlayerC_H");
 	SetGun(e_gun01);
 }
 
@@ -41,7 +44,24 @@ void PlayerGun::Attack(RefV3 vRight, bool _bNwayBullet)
 	Quaternion qRot;
 	D3DXQuaternionRotationMatrix(&qRot, &matRot);
 
-	AddObject(PlayerBullet)->SetBullet(E_PLAYERBULLET_02, transform->vWorldPos, qRot, 400.f, 0.5f);
+	float fDeleteTime = 0.5f;
+
+	switch (eGunType)
+	{
+	case e_noneGunType:
+		break;
+	case e_gun01:
+		fDeleteTime = 0.5f;
+		break;
+	case e_gun02:
+		fDeleteTime = 0.7f;
+		break;
+	case e_gun03:
+		fDeleteTime = 1.0f;
+		break;
+	}
+
+	AddObject(PlayerBullet)->SetBullet(E_PLAYERBULLET_02, transform->vWorldPos, qRot, 300.f, fDeleteTime);
 
 	if (_bNwayBullet)
 	{
@@ -78,8 +98,12 @@ void PlayerGun::SetGun(PLAYERGUNTYPE _eGunType)
 			transform->vPos = Vector3(0.f, 50.f, -20.f);
 			break;
 		case e_gun02:
+			lpShaderRenderer->lpMesh = lpB;
+			transform->vPos = Vector3(0.f, 50.f, -20.f);
 			break;
 		case e_gun03:
+			lpShaderRenderer->lpMesh = lpC;
+			transform->vPos = Vector3(0.f, 50.f, -20.f);
 			break;
 		default:
 			break;

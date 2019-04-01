@@ -1,5 +1,8 @@
 #pragma once
 #include "Scene.h"
+
+
+
 class LoadingScene :
 	public Scene
 {
@@ -7,6 +10,7 @@ public:
 	thread thread01;
 
 	bool bEnd = false;
+
 public:
 	LoadingScene();
 	virtual ~LoadingScene();

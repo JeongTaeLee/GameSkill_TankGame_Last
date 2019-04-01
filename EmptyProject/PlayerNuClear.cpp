@@ -35,6 +35,7 @@ void PlayerNuClear::Init()
 	lpPixelCollider->funcCall = [&]() {
 		if (!bExplsion)
 		{
+			SOUND->DuplicatePlay(L"Explosion");
 			bExplsion = true;
 			lpCollider->bEnable = true;
 			lpRenderer->bEnable = false;
@@ -57,7 +58,7 @@ void PlayerNuClear::Update()
 			fElapsed = 0.f;
 		}
 		else
-			fElapsed += Et;
+			fElapsed += Et();
 	}
 	else
 	{

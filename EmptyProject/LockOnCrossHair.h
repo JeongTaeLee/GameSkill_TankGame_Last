@@ -1,5 +1,7 @@
 #pragma once
 #include "GameObject.h"
+
+
 class LockOnCrossHair :
 	public GameObject
 {

@@ -10,7 +10,7 @@ public:
 	int iCount = 0;
 
 	float fElapsd = 0.f;
-	float fDelay = 0.05f;
+	float fDelay = 0.15f;
 public:
 	PlayerDieEffect();
 	virtual ~PlayerDieEffect();

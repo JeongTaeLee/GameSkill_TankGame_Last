@@ -49,7 +49,7 @@ void MosnterDieEffect::Update()
 		iCount++;
 	}
 	else
-		fElapsd += Et;
+		fElapsd += Et();
 }
 
 void MosnterDieEffect::SetMonsterDieEffect(MONSTERTYPE _eType, RefV3 vPos, RefV3 vScale)

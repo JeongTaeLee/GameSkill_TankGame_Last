@@ -56,7 +56,7 @@ void Animater::Update()
 		gameObject->lpRenderer->lpMesh = lpNowClip->veMehs[iCount];
 	}
 	else
-		fElapsed += Et;
+		fElapsed += Et();
 
 }
 

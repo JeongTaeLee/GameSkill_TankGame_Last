@@ -9,10 +9,13 @@ enum PLAYERGUNTYPE
 	e_gun03,
 };
 
+class PlayerTank;
+
 class PlayerGun :
 	public GameObject
 {
 public:
+	PlayerTank * lpTank = nullptr;
 	PLAYERGUNTYPE eGunType = e_noneGunType;
 
 	CMeshLoader * lpA = nullptr;

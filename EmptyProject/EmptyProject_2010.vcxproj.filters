@@ -117,9 +117,6 @@
     <Filter Include="GameObject\Player\PlayerNuClear">
       <UniqueIdentifier>{d4d4e978-6722-40dc-8e1b-ac0059b278cc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject\Player\HommingMissile">
-      <UniqueIdentifier>{6b10bfed-fdad-423f-8a8e-2b5239922ed0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObject\Player\PlayerUI">
       <UniqueIdentifier>{dd90fd28-c42d-479c-9013-5b87de591bc7}</UniqueIdentifier>
     </Filter>
@@ -155,6 +152,54 @@
     </Filter>
     <Filter Include="GameObject\Item\ItemUI">
       <UniqueIdentifier>{547a0bae-010b-4b40-bb6a-f1d7fb62e2e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Player\PlayerHommingMissile">
+      <UniqueIdentifier>{209d46af-1041-40be-8a46-faf5015c8d8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Monster\MonsterBullet">
+      <UniqueIdentifier>{94065f4d-7773-4fa4-8405-e9ce17a80739}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\CheckPointUI">
+      <UniqueIdentifier>{ec106a45-871d-4f83-bc08-bd4d0bbca564}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\GameClear">
+      <UniqueIdentifier>{a32fb274-4f29-47f1-8128-f6b30d1841df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Button">
+      <UniqueIdentifier>{7a446a87-bdeb-4043-a846-c67232bc668f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\VictoryScene">
+      <UniqueIdentifier>{01a0a846-89e3-450b-97dc-b5b53ecfe438}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\LoseScene">
+      <UniqueIdentifier>{f9c828b2-12b0-4fb0-b69b-5323f410d268}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Stage02">
+      <UniqueIdentifier>{fbd5d896-466d-4f62-ad92-1af067190ca4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\GameOver">
+      <UniqueIdentifier>{22edec5d-ff27-4b2e-9094-f562f101eff0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Map\Map02">
+      <UniqueIdentifier>{b024ec0c-0feb-4d52-92e0-c8bda325eaf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Ranking">
+      <UniqueIdentifier>{6cdc4f91-dfe8-4692-82cb-f6d67e3dca96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\AnimationView">
+      <UniqueIdentifier>{2c3ae455-83aa-4ec8-a72a-54561b650615}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\MainMenu">
+      <UniqueIdentifier>{685737d4-092d-45c2-81c4-c6170adae827}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Screen">
+      <UniqueIdentifier>{975afd59-6b3a-472b-aaaa-63e2acea3c3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Screen\RankScreen">
+      <UniqueIdentifier>{96ca6012-e275-4330-b115-a54d9d885401}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\SoundManager">
+      <UniqueIdentifier>{5f379278-0d70-44b4-8de4-e32294cd33dd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -329,9 +374,6 @@
     <ClCompile Include="PlayerNuClear.cpp">
       <Filter>GameObject\Player\PlayerNuClear</Filter>
     </ClCompile>
-    <ClCompile Include="HommingMissile.cpp">
-      <Filter>GameObject\Player\HommingMissile</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerUI.cpp">
       <Filter>GameObject\Player\PlayerUI</Filter>
     </ClCompile>
@@ -358,6 +400,61 @@
     </ClCompile>
     <ClCompile Include="ItemUI.cpp">
       <Filter>GameObject\Item\ItemUI</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHommingMissile.cpp">
+      <Filter>GameObject\Player\PlayerHommingMissile</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterBullet.cpp">
+      <Filter>GameObject\Monster\MonsterBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckPointUI.cpp">
+      <Filter>GameObject\CheckPointUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClear.cpp">
+      <Filter>GameObject\GameClear</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>GameObject\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="VictoryScene.cpp">
+      <Filter>Scene\VictoryScene</Filter>
+    </ClCompile>
+    <ClCompile Include="LoseScene.cpp">
+      <Filter>Scene\LoseScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage02.cpp">
+      <Filter>Scene\Stage02</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOver.cpp">
+      <Filter>GameObject\GameOver</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Map02.cpp">
+      <Filter>GameObject\Map\Map02</Filter>
+    </ClCompile>
+    <ClCompile Include="Ranking.cpp">
+      <Filter>GameObject\Ranking</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationView.cpp">
+      <Filter>GameObject\AnimationView</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Scene\MainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen.cpp">
+      <Filter>GameObject\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="RankScreen.cpp">
+      <Filter>GameObject\Screen\RankScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>Manager\SoundManager</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Optional\SDKsound.cpp">
+      <Filter>Manager\SoundManager</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Optional\SDKwavefile.cpp">
+      <Filter>Manager\SoundManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -470,9 +567,6 @@
     <ClInclude Include="PlayerNuClear.h">
       <Filter>GameObject\Player\PlayerNuClear</Filter>
     </ClInclude>
-    <ClInclude Include="HommingMissile.h">
-      <Filter>GameObject\Player\HommingMissile</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerUI.h">
       <Filter>GameObject\Player\PlayerUI</Filter>
     </ClInclude>
@@ -505,6 +599,60 @@
     </ClInclude>
     <ClInclude Include="ItemUI.h">
       <Filter>GameObject\Item\ItemUI</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHommingMissile.h">
+      <Filter>GameObject\Player\PlayerHommingMissile</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterBullet.h">
+      <Filter>GameObject\Monster\MonsterBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckPointUI.h">
+      <Filter>GameObject\CheckPointUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClear.h">
+      <Filter>GameObject\GameClear</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>GameObject\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="VictoryScene.h">
+      <Filter>Scene\VictoryScene</Filter>
+    </ClInclude>
+    <ClInclude Include="LoseScene.h">
+      <Filter>Scene\LoseScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage02.h">
+      <Filter>Scene\Stage02</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOver.h">
+      <Filter>GameObject\GameOver</Filter>
+    </ClInclude>
+    <ClInclude Include="Map02.h">
+      <Filter>GameObject\Map\Map02</Filter>
+    </ClInclude>
+    <ClInclude Include="Ranking.h">
+      <Filter>GameObject\Ranking</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationView.h">
+      <Filter>GameObject\AnimationView</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>Scene\MainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen.h">
+      <Filter>GameObject\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="RankScreen.h">
+      <Filter>GameObject\Screen\RankScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>Manager\SoundManager</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Optional\SDKsound.h">
+      <Filter>Manager\SoundManager</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Optional\SDKwavefile.h">
+      <Filter>Manager\SoundManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

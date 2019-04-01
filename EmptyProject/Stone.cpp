@@ -1,7 +1,7 @@
 #include "DXUT.h"
 #include "Stone.h"
 #include "LockOnCrossHair.h"
-
+#include "PlayerTank.h"
 Stone::Stone()
 {
 	sTag = "Stone";
@@ -38,11 +38,27 @@ void Stone::Release()
 
 void Stone::Update()
 {
-	if (bHit)
+	if (lpPlayer)
 	{
-		bHit = false;
-		transform->vPos.x += 10;
+		if (lpPlayer->bDestroy)
+		{
+			lpPlayer = nullptr;
+			return;
+		}
+
+		Vector3 v2Dpos;
+		WorldTo2D(v2Dpos, transform->vPos);
+
+		//30.f;
+		Vector2 vMousePos = INPUT->GetMPos();
+		float fLegnth = GetLength(Vector3(vMousePos.x, vMousePos.y, 0.f), v2Dpos);
+
+		if (fLegnth < 30.f)
+			lpPlayer->FireHommingMissile(this);
 	}
+	else
+		return;
+
 }
 
 void Stone::ReceiveCollider(Collider * lpOther)
@@ -50,13 +66,22 @@ void Stone::ReceiveCollider(Collider * lpOther)
 	if (bExplosion)
 		return;
 
+	if (lpOther->gameObject->sTag == "NuClear" || lpOther->gameObject->sTag == "Homming")
+	{
+		iLife = 0;
+
+		if (iLife <= 0)
+		{
+			bExplosion = true;
+			lpCollider->bEnable = false;
+			lpAnimater->UnStop();
+		}
+	}
+
+
 	if (lpOther->gameObject->sTag == "PlayerBullet" || lpOther->gameObject->sTag == "Player")
 	{
-		bHit = true;
-		transform->vPos.x -= 10;
-
 		iLife--;
-		DEBUG_LOG(iLife);
 
 		if (iLife <= 0)
 		{

@@ -1,6 +1,7 @@
 #include "DXUT.h"
 #include "MonsterB.h"
 #include "PlayerTank.h"
+#include "MonsterBullet.h"
 
 MonsterB::MonsterB()
 {
@@ -41,10 +42,10 @@ void MonsterB::Update()
 
 		funcState[eState]();
 
-		lpRigidBody->AddForce(vDir * 6.f);
-		//GetLookAtS(transform->qRot, lpRigidBody->vDir, 0.2f);
+		lpRigidBody->AddForce(vDir * 5.f);
 
 		transform->vRot.y += D3DXToRadian(2.f);
+		HommingCheck();
 	}
 	else
 		return;
@@ -59,11 +60,15 @@ void MonsterB::OnAttack()
 
 		eState = MONSTERASTATE::E_IDLE;
 
+		Vector3 vPlayerDir = lpPlayer->transform->vPos - transform->vPos;
+		D3DXVec3Normalize(&vPlayerDir, &vPlayerDir);
+		AddObject(MonsterBullet)->SetBullet(transform->vPos, vPlayerDir, 5.f);
+
 		vDir = lpPlayer->transform->vPos - transform->vPos;
 		D3DXVec3Normalize(&vDir, &vDir);
 	}
 	else
-		fElapsed += Et;
+		fElapsed += Et();
 }
 
 void MonsterB::OnIdle()
@@ -79,7 +84,7 @@ void MonsterB::OnIdle()
 		D3DXVec3Normalize(&vDir, &vDir);
 	}
 	else
-		fElapsed += Et;
+		fElapsed += Et();
 }
 
 void MonsterB::SetMonsterB(MONSTERTYPE eType, RefV3 _vPos, RefV3 _vOffset)

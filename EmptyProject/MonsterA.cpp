@@ -1,6 +1,7 @@
 #include "DXUT.h"
 #include "MonsterA.h"
 #include "PlayerTank.h"
+#include "MonsterBullet.h"
 
 MonsterA::MonsterA()
 {
@@ -18,7 +19,7 @@ void MonsterA::Init()
 	transform->eType = TransformUpdateType::TU_2;
 
 	AC(Collider);
-	lpCollider->SetCollider(10.f, Vector3(0.f, 0.f, 0.f));
+	lpCollider->SetCollider(20.f, Vector3(0.f, 10.f, 0.f));
 
 	AC(RigidBody);
 
@@ -40,8 +41,9 @@ void MonsterA::Update()
 
 		funcState[eState]();
 
-		lpRigidBody->AddForce(vDir * 6.f);
+		lpRigidBody->AddForce(vDir * 5.f);
 		GetLookAtS(transform->qRot, lpRigidBody->vDir, 0.2f);
+		HommingCheck();
 	}
 	else
 		return;
@@ -56,11 +58,16 @@ void MonsterA::OnAttack()
 		
 		eState = MONSTERASTATE::E_IDLE;
 
+		Vector3 vPlayerDir = lpPlayer->transform->vPos - transform->vPos;
+		D3DXVec3Normalize(&vPlayerDir, &vPlayerDir);
+		
+		AddObject(MonsterBullet)->SetBullet(transform->vPos, vPlayerDir, 5.f);
+
 		vDir = lpPlayer->transform->vPos - transform->vPos;
 		D3DXVec3Normalize(&vDir, &vDir);
 	}
 	else
-		fElapsed += Et;
+		fElapsed += Et();
 }
 
 void MonsterA::OnIdle()
@@ -76,7 +83,7 @@ void MonsterA::OnIdle()
 		D3DXVec3Normalize(&vDir, &vDir);
 	}
 	else
-		fElapsed += Et;
+		fElapsed += Et();
 }
 
 void MonsterA::SetMonsterA(MONSTERTYPE eType, RefV3 _vPos, RefV3 _vOffset)

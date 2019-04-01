@@ -3,6 +3,7 @@
 
 #include "MonsterSpawn.h"
 #include "PlayerTank.h"
+#include "Ranking.h"
 
 Stage01::Stage01()
 {
@@ -15,6 +16,8 @@ Stage01::~Stage01()
 
 void Stage01::Init()
 {
+	SOUND->Play(L"Ingame", true);
+
 	PlayerTank * tank = AddObject(PlayerTank);
 
 	MAP->lpTank = tank;
@@ -22,10 +25,14 @@ void Stage01::Init()
 
 	MonsterSpawn * lpSpawn = AddObject(MonsterSpawn);
 	lpSpawn->lpPlayer = tank;
+
+	SOUND->DuplicatePlay(L"Start");
 }
 
 void Stage01::Release()
 {
+	SOUND->Stop(L"Ingame");
+
 	OBJECT->Reset();
 }
 

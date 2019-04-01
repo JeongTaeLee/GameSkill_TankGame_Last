@@ -23,6 +23,16 @@ void InputManager::Update()
 		bNowKey[i] = GetAsyncKeyState(i);
 }
 
+int InputManager::GetInputKey()
+{
+	for (int i = 65; i < 91; ++i)
+	{
+		if (bNowKey[i] && !bOldKey[i])
+			return i;
+	}
+	return -1;
+}
+
 Vector2 InputManager::GetMPos()
 {
 	POINT pt = { 0 };

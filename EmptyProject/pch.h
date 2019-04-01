@@ -1,5 +1,7 @@
 #pragma once
 
+#pragma comment(lib, "dsound.lib")
+
 enum
 {
 	WINDOWX = 1280,
@@ -27,6 +29,7 @@ using Quaternion = D3DXQUATERNION;
 using RefV3 = const Vector3 &;
 using RefStr = const wstring &;
 
+
 #ifdef DEBUG
 #define DEBUG_LOG(s) cout << s << endl
 #define DEBUG_LOGW(s)  wcout << s << endl
@@ -47,6 +50,13 @@ using RefStr = const wstring &;
 
 #define g_device DXUTGetD3D9Device()
 
+extern float fFrameTime;
+
+inline float Et()
+{
+	return DXUTGetElapsedTime() * fFrameTime;
+}
+
 struct texture
 {
 	LPDIRECT3DTEXTURE9 lpTex = nullptr;
@@ -61,7 +71,6 @@ struct texture
 	}
 };
 
-#define Et DXUTGetElapsedTime()
 
 
 #include "SceneManager.h"
@@ -70,6 +79,7 @@ struct texture
 #include "ResourceManager.h"
 #include "CameraManger.h"
 #include "MapManager.h"
+#include "SoundManager.h"
 
 #include "MeshLoader.h"
 #include "Func.h"

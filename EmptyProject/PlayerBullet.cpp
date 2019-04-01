@@ -28,10 +28,11 @@ void PlayerBullet::Update()
 
 	if (fElapsed >= fDelay)
 	{
+		CreateExplosionA(transform->vPos);
 		bDestroy = true;
 	}
 	else
-		fElapsed += Et;
+		fElapsed += Et();
 }
 
 void PlayerBullet::SetBullet(PLAYERBULLETYPE type, RefV3 vPos, Quaternion qRot, float _fPower, float fTime)
@@ -78,6 +79,8 @@ void PlayerBullet::ReceiveCollider(Collider * lpOther)
 	{	
 		CreateExplosionA(transform->vPos);
 		bDestroy = true;
-		CAMERA->SetShake(5.f, 0.5f);
+		CAMERA->SetShake(2.f, 0.5f);
+
+		SOUND->DuplicatePlay(L"Explosion");
 	}
 }

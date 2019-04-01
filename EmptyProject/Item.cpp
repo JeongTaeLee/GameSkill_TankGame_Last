@@ -1,7 +1,7 @@
 #include "DXUT.h"
 #include "Item.h"
 #include "PlayerTank.h"
-
+#include "ItemUI.h"
 Item::Item()
 {
 }
@@ -16,7 +16,7 @@ void Item::Init()
 	transform->vScale = Vector3(0.2f, 0.2f, 0.2f);
 
 	AC(PixelCollider);
-	lpPixelCollider->iHeight = 5.f;
+	lpPixelCollider->iHeight = 5;
 	
 	AC(RigidBody);
 	lpRigidBody->fMass = 0.5f;
@@ -24,7 +24,32 @@ void Item::Init()
 
 
 	AC(Collider);
-	lpCollider->SetCollider(10.f, Vector3(0.f, 0.f, 0.f));
+	lpCollider->SetCollider(20.f, Vector3(0.f, 0.f, 0.f));
+}
+
+void Item::Update()
+{
+	if (lpTank)
+	{
+		if (lpTank->bDestroy)
+		{
+			lpTank = nullptr;
+			return;
+		}
+
+		float fLength = GetLength(transform->vPos, lpTank->transform->vPos);
+
+		if (fLength < 20.f)
+		{
+			DEBUG_LOG("In");
+			Vector3 vDir = lpTank->transform->vPos - transform->vPos;
+			D3DXVec3Normalize(&vDir, &vDir);
+
+			transform->vPos += vDir * (200 * Et());
+		}
+	}
+	else
+		return;
 }
 
 void Item::SetItem(RefV3 vPos, ITEMTYPE _eType)
@@ -90,6 +115,7 @@ void Item::ReceiveCollider(Collider * lpOther)
 {
 	if (lpOther->gameObject->sTag == "Player")
 	{
+		AddObject(ItemUI)->SetItemUI(eType);
 		func((PlayerTank*)lpOther->gameObject);
 		bDestroy = true;
 		bActive = false;

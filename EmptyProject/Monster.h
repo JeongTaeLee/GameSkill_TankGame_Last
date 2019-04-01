@@ -37,9 +37,9 @@ public:
 
 	virtual void Init()	override;
 	virtual void Release()	override;
+	void HommingCheck();
 
 	void CreateItem();
-
 
 
 	virtual void ReceiveCollider(Collider * lpOther) override;

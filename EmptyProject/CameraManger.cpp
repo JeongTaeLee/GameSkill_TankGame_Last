@@ -78,7 +78,7 @@ void CameraManger::Update()
 			bShake = false;
 		}
 		else
-			fShakeElapsed += Et;
+			fShakeElapsed += Et();
 	}
 }
 

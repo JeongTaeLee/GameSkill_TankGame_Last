@@ -32,7 +32,6 @@ struct Material
 {
 	wstring strName = L"None";
 
-
 	texture * lpDiffuse = nullptr;
 	texture * lpSpecular = nullptr;
 
@@ -44,17 +43,17 @@ public:
             CMeshLoader();
             ~CMeshLoader();
 
-    HRESULT Create(const WCHAR* strFilename );
+    HRESULT Create(const WCHAR* strFilename, RefStr mtlFileName = L"None");
     void    Destroy();
 
 
     UINT    GetNumMaterials() const
     {
-        return m_Materials.GetSize();
+        return (*m_Materials).size();
     }
     Material* GetMaterial( UINT iMaterial )
     {
-        return m_Materials.GetAt( iMaterial );
+        return (*m_Materials)[iMaterial];
     }
 
     ID3DXMesh* GetMesh()
@@ -64,8 +63,8 @@ public:
 
 public:
 
-    HRESULT LoadGeometryFromOBJ( const WCHAR* strFilename );
-    HRESULT LoadMaterialsFromMTL(wstring  strFileName, wstring strMaterialName, Material * pMaterial);
+    HRESULT LoadGeometryFromOBJ( const WCHAR* strFilename, RefStr mtlFileName);
+   // HRESULT LoadMaterialsFromMTL(wstring  strFileName, wstring strMaterialName, Material * pMaterial);
 
     DWORD   AddVertex( UINT hash, VERTEX* pVertex );
     void    DeleteCache();
@@ -76,7 +75,7 @@ public:
     CGrowableArray <VERTEX> m_Vertices;      // Filled and copied to the vertex buffer
     CGrowableArray <DWORD> m_Indices;       // Filled and copied to the index buffer
     CGrowableArray <DWORD> m_Attributes;    // Filled and copied to the attribute buffer
-    CGrowableArray <Material*> m_Materials;     // Holds material properties per subset
+    vector <Material*> *m_Materials = nullptr;     // Holds material properties per subset
 };
 
 #endif // _MESHLOADER_H_

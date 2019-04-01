@@ -6,6 +6,9 @@
 #include "PlayerUI.h"
 #include "MosnterDieEffect.h"
 #include "PlayerDieEffect.h"
+#include "PlayerHommingMissile.h"
+#include "GameClear.h"
+#include "GameOver.h"
 Vector3 PlayerTank::vSpawnPos = Vector3(0.f, 0.f, 0.f);
 
 PlayerTank::PlayerTank()
@@ -63,7 +66,7 @@ void PlayerTank::Init()
 		if (lpPixelCollider->eCallTypeLeft == PIXELTYPE::e_red 
 			&& lpPixelCollider->eCallTypeRight == PIXELTYPE::e_red)
 		{
-			if (eState == E_PLAYERSTATE_IDLE)
+			if (eState == E_PLAYERSTATE_IDLE && !bLifeInfinity)
 				SetState(E_PLAYERSTATE_SPAWN);
 		}
 	};
@@ -77,10 +80,14 @@ void PlayerTank::Init()
 
 void PlayerTank::Release()
 {
+	lpPlayerUI->bDestroy = true;
 }
 
 void PlayerTank::Update()
 {
+	if (KEYDOWN(VK_F1))
+		bLifeInfinity = !bLifeInfinity;
+
 	switch (eState)
 	{
 	case E_PLAYERSTATE_DIE:
@@ -101,7 +108,7 @@ void PlayerTank::Update()
 			SetState(E_PLAYERSTATE_IDLE);
 		}
 		else
-			fNuClearElapsed += Et;
+			fNuClearElapsed += Et();
 		break;
 
 	}
@@ -115,11 +122,11 @@ void PlayerTank::ReceiveCollider(Collider * lpOther)
 {
 	if (lpOther->gameObject->sTag == "Stone")
 	{
-		if (eState == E_PLAYERSTATE_IDLE)
+		if (eState == E_PLAYERSTATE_IDLE && !bLifeInfinity)
 			SetState(E_PLAYERSTATE_SPAWN);
 	}
 
-	if (lpOther->gameObject->sTag == "MonsterBullet")
+	if (lpOther->gameObject->sTag == "MonsterBullet" && !bLifeInfinity)
 	{
 		if (eState == E_PLAYERSTATE_IDLE)
 			SetState(E_PLAYERSTATE_SPAWN);
@@ -159,6 +166,16 @@ void PlayerTank::Idle()
 		{
 			if (iNowIndex != MAP->vWidthMap.size() - 1)
 				++MAP->iWidthIndex;
+			else
+			{
+				fTotalSpeed = 0.f;
+
+				if (!bGameEnd)
+				{
+					bGameEnd = true;
+					AddObject(GameClear);
+				}
+			}
 		}
 	}
 	else if (fTotalSpeed < 0.f)
@@ -177,9 +194,9 @@ void PlayerTank::Idle()
 	}
 
 	if (bBack)
-		transform->vPos += -vLookDir * (fTotalSpeed * Et);
+		transform->vPos += -vLookDir * (fTotalSpeed * Et());
 	else
-		transform->vPos += vLookDir * (fTotalSpeed * Et);
+		transform->vPos += vLookDir * (fTotalSpeed * Et());
 	fTotalSpeed *= 0.92;
 
 	if (KEYDOWN(VK_SPACE))
@@ -218,6 +235,7 @@ void PlayerTank::Spawn()
 		fSpawnElapsed = 0.f;
 
 		--iLife;
+		lpPlayerUI->SetLife(iLife);
 
 		if (iLife > 0)
 		{
@@ -226,11 +244,12 @@ void PlayerTank::Spawn()
 		}
 		else
 		{
-
+			AddObject(GameOver);
+			SetState(PLAYERSTATE::E_PLAYERSTATE_DIE);
 		}
 	}
 	else
-		fSpawnElapsed += Et;
+		fSpawnElapsed += Et();
 }
 
 void PlayerTank::Attack()
@@ -268,6 +287,8 @@ void PlayerTank::Attack()
 
 	if (KEYDOWN(VK_LBUTTON))
 	{
+		SOUND->DuplicatePlay(L"Fire");
+
 		switch (eWeapon)
 		{
 		case e_base:
@@ -310,17 +331,20 @@ void PlayerTank::SetTank(PLAYERTYPE etype)
 		case e_none:
 			break;
 		case e_tank01:	
-			vWeaponFirePos = Vector3(10.f, 20.f, 0.f);
+			lpGun->SetGun(PLAYERGUNTYPE::e_gun01);
+			vWeaponFirePos = Vector3(10.f, 10.f, 0.f);
 			lpAnimater->Chanage(L"MovingA", 0.05f);
 			lpPixelCollider->iHeight = 10;
 			break;
 		case e_tank02:
-			vWeaponFirePos = Vector3(10.f, 20.f, 0.f);
+			lpGun->SetGun(PLAYERGUNTYPE::e_gun02);
+			vWeaponFirePos = Vector3(10.f, 10.f, 0.f);
 			lpAnimater->Chanage(L"MovingB", 0.05f);
 			lpPixelCollider->iHeight = 10;
 			break;
 		case e_tank03:
-			vWeaponFirePos = Vector3(10.f, 20.f, 0.f);
+			lpGun->SetGun(PLAYERGUNTYPE::e_gun03);
+			vWeaponFirePos = Vector3(10.f, 10.f, 0.f);
 			lpAnimater->Chanage(L"MovingC", 0.05f);
 			lpPixelCollider->iHeight = 10;
 			break;
@@ -397,7 +421,7 @@ void PlayerTank::ItemTimeCheck()
 			lpPlayerUI->SetDoubleJump(false);
 		}
 		else
-			fDoubleJumpElapsed += Et;
+			fDoubleJumpElapsed += Et();
 	}
 
 	if (bNwayBulletEnable)
@@ -409,7 +433,7 @@ void PlayerTank::ItemTimeCheck()
 			lpPlayerUI->SetNwayBullet(false);
 		}
 		else
-			fNwayBulletElapsed += Et;
+			fNwayBulletElapsed += Et();
 	}
 
 	if (bRangeUpEnable)
@@ -421,7 +445,7 @@ void PlayerTank::ItemTimeCheck()
 			lpPlayerUI->SetRangeUp(false);
 		}
 		else
-			fRangeUpElapsed += Et;
+			fRangeUpElapsed += Et();
 	}
 }
 
@@ -451,8 +475,8 @@ void PlayerTank::CameraSetting()
 	vTargetLookAt = vPivot + Vector3(0.f, 30.f, 0.f);
 	
 
-	D3DXVec3Lerp(&camere->vPos, &camere->vPos, &vTarget, Et * 5);
-	D3DXVec3Lerp(&camere->vLookAt, &camere->vLookAt, &vTargetLookAt, Et * 5);
+	D3DXVec3Lerp(&camere->vPos, &camere->vPos, &vTarget, Et() * 5);
+	D3DXVec3Lerp(&camere->vLookAt, &camere->vLookAt, &vTargetLookAt, Et() * 5);
 
 	if (fShakeElapsed > fShakeDelay)
 	{
@@ -469,7 +493,7 @@ void PlayerTank::CameraSetting()
 		}
 	}
 	else
-		fShakeElapsed += Et;
+		fShakeElapsed += Et();
 }
 
 void PlayerTank::SetDoubleJump()
@@ -529,5 +553,10 @@ void PlayerTank::AddHomming()
 
 void PlayerTank::FireHommingMissile(GameObject * lpTank)
 {
-
+	if (eWeapon == e_homming && iHommingCount > 0)
+	{
+		iHommingCount--;
+		lpPlayerUI->SetWeapon(e_homming, iHommingCount);
+		AddObject(PlayerHommingMissile)->SetHomming(transform->vPos, lpTank);
+	}
 }
