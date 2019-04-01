@@ -18,6 +18,11 @@ public:
 
 	Matrix matView;
 	Matrix matProj;
+
+	bool bShake;
+	float fShakeElapsed = 0.f;
+	float fShakeDelay = 0.f;
+	float fPower = 0.f;
 public:
 	CameraManger();
 	virtual ~CameraManger();
@@ -28,7 +33,11 @@ public:
 
 	Camera * ChanageCamera(RefStr key);
 
+	void Update();
+
 	void SetViewMatrix();
+	void SetShake(float _fPower, float _fShakeDelay = 0.5f);
+
 };
 
 #define CAMERA CameraManger::Getinst()

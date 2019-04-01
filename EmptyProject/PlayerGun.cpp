@@ -34,7 +34,7 @@ void PlayerGun::Update()
 	transform->vRot.x = fAngle;
 }
 
-void PlayerGun::Attack()
+void PlayerGun::Attack(RefV3 vRight, bool _bNwayBullet)
 {
 	Matrix matRot = transform->matRot * transform->lpParent->transform->matRot;
 	
@@ -42,6 +42,27 @@ void PlayerGun::Attack()
 	D3DXQuaternionRotationMatrix(&qRot, &matRot);
 
 	AddObject(PlayerBullet)->SetBullet(E_PLAYERBULLET_02, transform->vWorldPos, qRot, 400.f, 0.5f);
+
+	if (_bNwayBullet)
+	{
+		Matrix matRotLeft;
+		Matrix matRotRight;
+
+		D3DXMatrixRotationAxis(&matRotLeft, &vRight, D3DXToRadian(10.f));
+		D3DXMatrixRotationAxis(&matRotRight, &vRight, -D3DXToRadian(10.f));
+
+		matRotLeft = matRot * matRotLeft;
+		matRotRight = matRot * matRotRight;
+
+		Quaternion qRotLeft;
+		D3DXQuaternionRotationMatrix(&qRotLeft, &matRotLeft);
+
+		Quaternion qRotRight;
+		D3DXQuaternionRotationMatrix(&qRotRight, &matRotRight);
+
+		AddObject(PlayerBullet)->SetBullet(E_PLAYERBULLET_02, transform->vWorldPos, qRotLeft, 400.f, 0.5f);
+		AddObject(PlayerBullet)->SetBullet(E_PLAYERBULLET_02, transform->vWorldPos, qRotRight, 400.f, 0.5f);
+	}
 }
 
 void PlayerGun::SetGun(PLAYERGUNTYPE _eGunType)

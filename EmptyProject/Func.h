@@ -89,3 +89,8 @@ void GetLookAt(Quaternion &qRot, const Vector3 & vDir);
 void GetLookAtS(Quaternion & qRot, const Vector3 & vDir, float _fS);
 
 void WorldTo2D(Vector3 & vResult, const Vector3 & vPos);
+void BillBoarding(Matrix & matRot, RefV3 vPos, RefV3 vScale);
+
+void CreateExplosionA(RefV3 vPos);
+void CreateExplosionB(RefV3 vPos);
+void CreateExplosionC(RefV3 vPos);

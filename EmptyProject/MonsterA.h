@@ -1,14 +1,6 @@
 #pragma once
 #include "Monster.h"
 
-enum MONSTERASTATE
-{
-	E_IDLE,
-	E_ATTACK,
-	E_LAST,
-};
-
-
 class MonsterA :
 	public Monster
 {

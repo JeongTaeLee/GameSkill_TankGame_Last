@@ -1,10 +1,21 @@
 #pragma once
 #include "GameObject.h"
 
+enum MONSTERASTATE
+{
+	E_IDLE,
+	E_ATTACK,
+	E_LAST,
+};
+
+
+
 enum MONSTERTYPE
 {
-	E_MONSTERTYPE_1,
-	E_MONSTERTYPE_2,
+	E_MONSTERTYPE_A1,
+	E_MONSTERTYPE_A2,
+	E_MONSTERTYPE_B1,
+	E_MONSTERTYPE_B2,
 };
 
 class PlayerTank;
@@ -16,6 +27,8 @@ class Monster :
 public:
 	PlayerTank * lpPlayer = nullptr;
 	LockOnCrossHair * lpLockOnHair = nullptr;
+	
+	MONSTERTYPE eMonsterType = E_MONSTERTYPE_A1;
 
 	int iLife = 0;
 public:
@@ -24,6 +37,8 @@ public:
 
 	virtual void Init()	override;
 	virtual void Release()	override;
+
+	void CreateItem();
 
 
 

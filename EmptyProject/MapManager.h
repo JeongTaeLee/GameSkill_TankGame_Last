@@ -23,6 +23,8 @@ public:
 
 	vector<Vector3> vWidthMap;
 	int iWidthIndex = 0;
+	
+	int iScore = 0;
 public:
 	MapManager();
 	virtual ~MapManager();

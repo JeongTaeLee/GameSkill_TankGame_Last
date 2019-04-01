@@ -9,7 +9,10 @@ class Stone :
 public:
 	LockOnCrossHair * lpLockOnCrossHair = nullptr;
 	
+	int iLife = 5;
+
 	bool bExplosion = false;
+	bool bHit = false;
 public:
 	Stone();
 	virtual ~Stone();
@@ -20,6 +23,5 @@ public:
 
 
 	virtual void ReceiveCollider(Collider * lpOther);
-
 };
 

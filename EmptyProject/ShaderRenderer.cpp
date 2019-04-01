@@ -1,6 +1,7 @@
 #include "DXUT.h"
 #include "ShaderRenderer.h"
 
+Vector3 ShaderRenderer::vLight = Vector3(0.f, 0.f, 0.f);
 
 ShaderRenderer::ShaderRenderer()
 {
@@ -42,8 +43,8 @@ void ShaderRenderer::Render()
 		lpEffect->SetMatrix(D3DXHANDLE("gProjMatrix"), &CAMERA->matProj);
 
 		lpEffect->SetVector(D3DXHANDLE("gCameraPos"), &Vector4(CAMERA->lpNowCamera->vPos, 1.f));
-		lpEffect->SetVector(D3DXHANDLE("gLightPos"), &Vector4(0.f, 5000.f, -2000.f, 1.f));
-		lpEffect->SetVector(D3DXHANDLE("gAmbent"), &Vector4(0.1f, 0.1f, 0.1f, 1.f));
+		lpEffect->SetVector(D3DXHANDLE("gLightPos"), &Vector4(vLight, 1.f));
+		lpEffect->SetVector(D3DXHANDLE("gAmbent"), &Vector4(0.5f, 0.5f, 0.5f, 1.f));
 		
 		UINT pass = 0;
 		lpEffect->Begin(&pass, 0);

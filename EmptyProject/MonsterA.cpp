@@ -18,14 +18,14 @@ void MonsterA::Init()
 	transform->eType = TransformUpdateType::TU_2;
 
 	AC(Collider);
-	lpCollider->SetCollider(25.f, Vector3(0.f, 0.f, 0.f));
+	lpCollider->SetCollider(10.f, Vector3(0.f, 0.f, 0.f));
 
 	AC(RigidBody);
 
 	funcState[E_IDLE] = [&]() { OnIdle(); };
 	funcState[E_ATTACK] = [&]() { OnAttack(); };
 
-	transform->vScale = Vector3(0.2f, 0.2f, 0.2f);
+	transform->vScale = Vector3(0.15f, 0.15f, 0.15f);
 }
 
 void MonsterA::Update()
@@ -81,16 +81,17 @@ void MonsterA::OnIdle()
 
 void MonsterA::SetMonsterA(MONSTERTYPE eType, RefV3 _vPos, RefV3 _vOffset)
 {
-	DEBUG_LOG("In");
 	AC(ShaderRenderer);
 	lpShaderRenderer->lpEffect = GetEffect(L"Lighting");
 
-	switch (eType)
+	eMonsterType = eType;
+
+	switch (eMonsterType)
 	{
-	case E_MONSTERTYPE_1:
+	case E_MONSTERTYPE_A1:
 		lpShaderRenderer->lpMesh = GetMesh_(L"MonsterA1");
 		break;
-	case E_MONSTERTYPE_2:
+	case E_MONSTERTYPE_A2:
 		lpShaderRenderer->lpMesh = GetMesh_(L"MonsterA2");
 		break;
 	}

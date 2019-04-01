@@ -99,15 +99,6 @@
     <Filter Include="GameObject\CheckPoint">
       <UniqueIdentifier>{cd6efef1-19c1-4fb6-83ef-41b0430f336a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObject\Monster">
-      <UniqueIdentifier>{bb65d37b-2ada-4b42-bb3c-a580d6267d89}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObject\Monster\MonsterA">
-      <UniqueIdentifier>{2ef983ae-8134-4483-ab17-581174e3b342}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObject\Monster\MonsterSpawn">
-      <UniqueIdentifier>{cd26d9ab-bbf8-44c1-b818-8676756bec5d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameObject\SkyBox">
       <UniqueIdentifier>{e2e5d6ba-29a0-4bdc-83d8-635a2aca8ad3}</UniqueIdentifier>
     </Filter>
@@ -122,6 +113,48 @@
     </Filter>
     <Filter Include="GameObject\Item">
       <UniqueIdentifier>{b6d97140-30fa-41e6-899c-3aff63cf8667}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Player\PlayerNuClear">
+      <UniqueIdentifier>{d4d4e978-6722-40dc-8e1b-ac0059b278cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Player\HommingMissile">
+      <UniqueIdentifier>{6b10bfed-fdad-423f-8a8e-2b5239922ed0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Player\PlayerUI">
+      <UniqueIdentifier>{dd90fd28-c42d-479c-9013-5b87de591bc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Text">
+      <UniqueIdentifier>{7991a984-d051-4935-9e3f-a8a42c84645d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\BBRenderer">
+      <UniqueIdentifier>{283e7098-e3b3-45a4-b307-57c4c1117298}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\ExplosionEffect">
+      <UniqueIdentifier>{21fff1a0-97ce-4804-9689-58e1c68e6164}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Monster">
+      <UniqueIdentifier>{bb65d37b-2ada-4b42-bb3c-a580d6267d89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Monster\MonsterA">
+      <UniqueIdentifier>{2ef983ae-8134-4483-ab17-581174e3b342}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Monster\MonsterSpawn">
+      <UniqueIdentifier>{cd26d9ab-bbf8-44c1-b818-8676756bec5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Monster\MonsterDieEffect">
+      <UniqueIdentifier>{41e3384c-4f4b-42bf-8ec6-549fde4496d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\3DExplosion">
+      <UniqueIdentifier>{413d1d25-1684-4257-a6e2-52a72c1bd71f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Player\PlayerDieEffect">
+      <UniqueIdentifier>{85e9263f-228d-4307-bbe0-37188905d557}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Monster\MonsterB">
+      <UniqueIdentifier>{56cf1473-4ab9-4027-b6fc-35236b6cf9d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Item\ItemUI">
+      <UniqueIdentifier>{547a0bae-010b-4b40-bb6a-f1d7fb62e2e7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -293,6 +326,39 @@
     <ClCompile Include="Item.cpp">
       <Filter>GameObject\Item</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerNuClear.cpp">
+      <Filter>GameObject\Player\PlayerNuClear</Filter>
+    </ClCompile>
+    <ClCompile Include="HommingMissile.cpp">
+      <Filter>GameObject\Player\HommingMissile</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerUI.cpp">
+      <Filter>GameObject\Player\PlayerUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Component\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="BBRenderer.cpp">
+      <Filter>Component\BBRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplosionEffect.cpp">
+      <Filter>GameObject\ExplosionEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="MosnterDieEffect.cpp">
+      <Filter>GameObject\Monster\MonsterDieEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="Explosion3D.cpp">
+      <Filter>GameObject\3DExplosion</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerDieEffect.cpp">
+      <Filter>GameObject\Player\PlayerDieEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterB.cpp">
+      <Filter>GameObject\Monster\MonsterB</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemUI.cpp">
+      <Filter>GameObject\Item\ItemUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -347,9 +413,6 @@
     <ClInclude Include="CameraManger.h">
       <Filter>Manager\CameraManager</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerTank.h">
-      <Filter>GameObject\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Animater.h">
       <Filter>Component\Animater</Filter>
     </ClInclude>
@@ -395,9 +458,6 @@
     <ClInclude Include="MonsterA.h">
       <Filter>GameObject\Monster\MonsterA</Filter>
     </ClInclude>
-    <ClInclude Include="MonsterSpawn.h">
-      <Filter>GameObject\Monster\MonsterSpawn</Filter>
-    </ClInclude>
     <ClInclude Include="Stone.h">
       <Filter>GameObject\Stone</Filter>
     </ClInclude>
@@ -406,6 +466,45 @@
     </ClInclude>
     <ClInclude Include="Item.h">
       <Filter>GameObject\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerNuClear.h">
+      <Filter>GameObject\Player\PlayerNuClear</Filter>
+    </ClInclude>
+    <ClInclude Include="HommingMissile.h">
+      <Filter>GameObject\Player\HommingMissile</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerUI.h">
+      <Filter>GameObject\Player\PlayerUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Component\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="BBRenderer.h">
+      <Filter>Component\BBRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplosionEffect.h">
+      <Filter>GameObject\ExplosionEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="MosnterDieEffect.h">
+      <Filter>GameObject\Monster\MonsterDieEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="Explosion3D.h">
+      <Filter>GameObject\3DExplosion</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerDieEffect.h">
+      <Filter>GameObject\Player\PlayerDieEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterB.h">
+      <Filter>GameObject\Monster\MonsterB</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerTank.h">
+      <Filter>GameObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterSpawn.h">
+      <Filter>GameObject\Monster\MonsterSpawn</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemUI.h">
+      <Filter>GameObject\Item\ItemUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

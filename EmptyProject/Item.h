@@ -11,12 +11,14 @@ enum ITEMTYPE
 	ITEM_S,
 	ITEM_U,
 };
-
+class PlayerTank;
 class Item :
 	public GameObject
 {
 public:
-	ITEMTYPE eType;
+	ITEMTYPE eType = ITEM_D;
+
+	function < void(PlayerTank * tank) > func = nullptr;
 public:
 	Item();
 	virtual ~Item();
@@ -24,6 +26,8 @@ public:
 	virtual void Init()	override;
 	
 	void SetItem(RefV3 vPos, ITEMTYPE _eType);
+
+	virtual void ReceiveCollider(Collider * lpOther) override;
 
 };
 

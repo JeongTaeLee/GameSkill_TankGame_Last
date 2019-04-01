@@ -7,7 +7,7 @@
 #include "UIRenderer.h"
 #include "Renderer.h"
 #include "Collider.h"
-
+#include "BBRenderer.h"
 ObjectManager::ObjectManager()
 {
 }
@@ -39,6 +39,12 @@ UIRenderer * ObjectManager::AddUIRenderer(UIRenderer * _renderer)
 	return _renderer;
 }
 
+BBRenderer * ObjectManager::AddBBRenderer(BBRenderer * _lpBBRenderer)
+{
+	liBBRenderer.push_back(_lpBBRenderer);
+	return _lpBBRenderer;;
+}
+
 Collider * ObjectManager::AddCollider(Collider * lpCollider)
 {
 	liCollider.push_back(lpCollider);
@@ -53,6 +59,11 @@ void ObjectManager::DeleteCollider(Collider * lpCollider)
 void ObjectManager::DeleteRenderer(Renderer * _renderer)
 {
 	liRenderer.remove(_renderer);
+}
+
+void ObjectManager::DeleteBBRenderer(BBRenderer * lpBBRenderer)
+{
+	liBBRenderer.remove(lpBBRenderer);
 }
 
 void ObjectManager::DeleteUIRenderer(UIRenderer * _UIrenderer)
@@ -89,6 +100,12 @@ void ObjectManager::Update()
 void ObjectManager::Render()
 {
 	for (auto Iter : liRenderer)
+	{
+		if (Iter->bEnable)
+			Iter->Render();
+	}
+
+	for (auto Iter : liBBRenderer)
 	{
 		if (Iter->bEnable)
 			Iter->Render();

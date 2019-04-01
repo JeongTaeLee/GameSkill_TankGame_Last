@@ -39,6 +39,7 @@ void MainGame::Update()
 	INPUT->Update();
 	SCENE->Update();
 	OBJECT->Update();
+	CAMERA->Update();
 }
 
 void MainGame::Render()

@@ -4,6 +4,7 @@
 
 Stone::Stone()
 {
+	sTag = "Stone";
 }
 
 
@@ -13,6 +14,8 @@ Stone::~Stone()
 
 void Stone::Init()
 {
+	transform->vScale = Vector3(0.3f, 0.3f, 0.3f);
+
 	lpLockOnCrossHair = AddObject(LockOnCrossHair);
 	lpLockOnCrossHair->lpTarget = this;
 
@@ -21,11 +24,11 @@ void Stone::Init()
 
 	AC(Animater);
 	lpAnimater->Add(L"Stone", L"Stone%d", 0, 20, [&]() {bDestroy = true; });
-	lpAnimater->Chanage(L"Stone", 0.1f);
+	lpAnimater->Chanage(L"Stone", 0.05f);
 	lpAnimater->Stop(0);
 
 	AC(Collider);
-	lpCollider->SetCollider(30.f, Vector3(0.f, 0.f, 0.f));
+	lpCollider->SetCollider(20.f, Vector3(0.f, 0.f, 0.f));
 }
 
 void Stone::Release()
@@ -35,6 +38,11 @@ void Stone::Release()
 
 void Stone::Update()
 {
+	if (bHit)
+	{
+		bHit = false;
+		transform->vPos.x += 10;
+	}
 }
 
 void Stone::ReceiveCollider(Collider * lpOther)
@@ -44,9 +52,17 @@ void Stone::ReceiveCollider(Collider * lpOther)
 
 	if (lpOther->gameObject->sTag == "PlayerBullet" || lpOther->gameObject->sTag == "Player")
 	{
-		lpCollider->bEnable = false;
-		
-		bExplosion = true;
-		lpAnimater->UnStop();
+		bHit = true;
+		transform->vPos.x -= 10;
+
+		iLife--;
+		DEBUG_LOG(iLife);
+
+		if (iLife <= 0)
+		{
+			bExplosion = true;
+			lpCollider->bEnable = false;
+			lpAnimater->UnStop();
+		}
 	}
 }

@@ -25,7 +25,7 @@ public:
 	virtual void Init()	override;
 	virtual void Update()	override;
 
-	void Attack();
+	void Attack(RefV3 vRight, bool _bNwayBullet);
 
 	void SetGun(PLAYERGUNTYPE _eGunType);
 

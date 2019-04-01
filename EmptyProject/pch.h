@@ -84,3 +84,5 @@ struct texture
 #include "RigidBody.h"
 #include "PixelCollider.h"
 #include "Collider.h"
+#include "Text.h"
+#include "BBRenderer.h"

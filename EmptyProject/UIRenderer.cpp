@@ -30,7 +30,11 @@ void UIRenderer::Render()
 {
 	if (lpTex)
 	{
-		RESOURCE->lpSprite->SetTransform(&transform->matWorld);
+		Matrix matPos;
+		D3DXMatrixTranslation(&matPos, vPos.x, vPos.y, 0.f);
+		matPos = transform->matWorld * matPos;
+
+		RESOURCE->lpSprite->SetTransform(&matPos);
 		RESOURCE->lpSprite->Draw(lpTex->lpTex, nullptr, &vCenterPos, nullptr, color);
 	}
 }

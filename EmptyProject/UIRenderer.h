@@ -8,6 +8,7 @@ public:
 
 	D3DXCOLOR color = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
 	Vector3 vCenterPos = Vector3(0.f, 0.f, 0.f);
+	Vector3 vPos = Vector3(0.f, 0.f, 0.f);
 public:
 	UIRenderer();
 	virtual ~UIRenderer();

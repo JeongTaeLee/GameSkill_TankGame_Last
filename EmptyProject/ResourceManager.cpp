@@ -15,8 +15,8 @@ ResourceManager::ResourceManager()
 
 	v[0] = { Vector3(-1.f, 1.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector2(0.f, 0.f) };
 	v[1] = { Vector3(1.f, 1.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 0.f) };
-	v[2] = { Vector3(1.f, -1.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector2(0.f, 1.f) };
-	v[3] = { Vector3(-1.f, -1.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f) };
+	v[2] = { Vector3(1.f, -1.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector2(1.f, 1.f) };
+	v[3] = { Vector3(-1.f, -1.f, 0.f), Vector3(0.f, 0.f, 0.f), Vector2(0.f, 1.f) };
 
 	lpMesh->UnlockVertexBuffer();
 

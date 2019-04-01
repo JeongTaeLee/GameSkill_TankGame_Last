@@ -50,23 +50,23 @@ void PlayerBullet::SetBullet(PLAYERBULLETYPE type, RefV3 vPos, Quaternion qRot, 
 	switch (type)
 	{
 	case E_PLAYERBULLET_01:
-		lpShaderRenderer->lpMesh = GetMesh_(L"PlayerBullet01");
-		transform->vScale = Vector3(0.2f, 0.2f, 0.2f);
+		lpShaderRenderer->lpMesh = GetMesh_(L"NormalBullet");
+		transform->vScale = Vector3(0.15f, 0.15f, 0.15f);
 		break;
 	case E_PLAYERBULLET_02:
-		lpShaderRenderer->lpMesh = GetMesh_(L"PlayerBullet02");
-		transform->vScale = Vector3(0.2f, 0.2f, 0.2f);
+		lpShaderRenderer->lpMesh = GetMesh_(L"AirBullet");
+		transform->vScale = Vector3(0.1f, 0.1f, 0.1f);
 		break;
 	default:
 		break;
 	}
 
 	AC(Collider);
-	lpCollider->SetCollider(10.f, Vector3(0.f, 0.f, 0.f));
+	lpCollider->SetCollider(5.f, Vector3(0.f, 0.f, 0.f));
 
 	AC(RigidBody);
 	lpRigidBody->fMass = 1.f;
-	lpRigidBody->bUseGravity = true;
+	lpRigidBody->bUseGravity = false;
 	lpRigidBody->AddForce(vDir * fPower);
 
 	GetLookAtS(transform->qRot, vDir, 0.2f);
@@ -74,8 +74,10 @@ void PlayerBullet::SetBullet(PLAYERBULLETYPE type, RefV3 vPos, Quaternion qRot, 
 
 void PlayerBullet::ReceiveCollider(Collider * lpOther)
 {
-	if (lpOther->gameObject->sTag == "Monster")
-	{
+	if (lpOther->gameObject->sTag == "Monster" || lpOther->gameObject->sTag == "Stone")
+	{	
+		CreateExplosionA(transform->vPos);
 		bDestroy = true;
+		CAMERA->SetShake(5.f, 0.5f);
 	}
 }

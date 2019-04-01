@@ -4,6 +4,7 @@ class Transform;
 class Component;
 class Collider;
 
+class Text;
 class Animater;
 class Renderer;
 class ShaderRenderer;
@@ -11,6 +12,7 @@ class UIRenderer;
 class Collider;
 class PixelCollider;
 class RigidBody;
+class BBRenderer;
 
 
 class GameObject
@@ -26,6 +28,7 @@ public:
 	list<Component*> liComponent;
 
 public:
+	Text * lpText = nullptr;
 	Renderer * lpRenderer = nullptr;
 	ShaderRenderer * lpShaderRenderer = nullptr;
 	UIRenderer * lpUIRenderer = nullptr;
@@ -33,6 +36,7 @@ public:
 	Collider * lpCollider = nullptr;
 	PixelCollider * lpPixelCollider = nullptr;
 	RigidBody * lpRigidBody = nullptr;
+	BBRenderer * lpBBRenderer = nullptr;
 public:
 	GameObject();
 	virtual ~GameObject();
