@@ -48,3 +48,12 @@ void MonsterBullet::SetBullet(RefV3 vPos, RefV3 _vDir, float _fPower)
 	AC(RigidBody);
 	lpRigidBody->AddForce(vDir * fPower);
 }
+
+void MonsterBullet::ReceiveCollider(Collider * lpOther)
+{
+	if (lpOther->gameObject->sTag == "Player" || lpOther->gameObject->sTag == "PlayerBullet")
+	{
+		CreateExplosionA(transform->vPos);
+		bDestroy = true;
+	}
+}

@@ -60,29 +60,32 @@ void LoadingScene::Update()
 
 void LoadingScene::Loading()
 {
-	SOUND->AddSound(L"Click", L"./rs/Music/bounce.wav");
+	MAP->LoadScore();
+
+	SOUND->AddSound(L"Click", L"./rs/Music/Click.wav");
 	SOUND->AddSound(L"Explosion", L"./rs/Music/Explosion.wav");
 	SOUND->AddSound(L"Fire", L"./rs/Music/Fire.wav");
 	SOUND->AddSound(L"Ingame", L"./rs/Music/Ingame.wav");
 	SOUND->AddSound(L"Start", L"./rs/Music/Start.wav");
-
+	SOUND->AddSound(L"Failed", L"./rs/Music/Failed.wav");
+	SOUND->AddSound(L"Victory", L"./rs/Music/Victory.wav");
 
 	AdEffect(L"Lighting", L"./Lighting.fx");
 
 	//PlayerA
 	LoadMeshs(L"PlayerA%d", L"./rs/PlayerA/PlayerA%d.obj", L"PlayerA", 0, 1);
 	AdMesh(L"PlayerA_H", L"./rs/PlayerA/PlayerA_/TankA_.obj");
-	LoadMeshs(L"PlayerADie%d", L"./rs/PlayerA_die/PlayerA_Die%d.obj", L"PlayerADie", 0, 5);
+	LoadMeshs(L"PlayerADie%d", L"./rs/PlayerA_die/PlayerA_Die%d.obj", L"PlayerADie", 0, 20);
 
 	//PlayerB
 	LoadMeshs(L"PlayerB%d", L"./rs/PlayerB/PlayerB%d.obj", L"PlayerB", 0, 1);
 	AdMesh(L"PlayerB_H", L"./rs/PlayerB/PlayerB__/PlayerB__.obj");
-	LoadMeshs(L"PlayerBDie%d", L"./rs/PlayerB_die/PlayerB_Die%d.obj", L"PlayerBDie", 0, 5);
+	LoadMeshs(L"PlayerBDie%d", L"./rs/PlayerB_die/PlayerB_Die%d.obj", L"PlayerBDie", 0, 20);
 
 	//PlayerC
 	LoadMeshs(L"PlayerC%d", L"./rs/PlayerC/PlayerC%d.obj", L"PlayerC", 0, 1);
 	AdMesh(L"PlayerC_H", L"./rs/PlayerC/PlayerC__/PlayerC__.obj");
-	LoadMeshs(L"PlayerCDie%d", L"./rs/PlayerC_die/PlayerC_Die%d.obj", L"PlayerCDie", 0, 5);
+	LoadMeshs(L"PlayerCDie%d", L"./rs/PlayerC_die/PlayerC_Die%d.obj", L"PlayerCDie", 0, 20);
 
 	//MonsterA
 	AdMesh(L"MonsterA1", L"./rs/MonsterA1/MonsterA1.obj");
@@ -120,7 +123,7 @@ void LoadingScene::Loading()
 
 	//WeaponDisplay
 	AdTex(L"NormalBulletDisplay", L"./rs/UI/W/Normal.png");
-	AdTex(L"NWayBulletDisplay", L"./rs/UI/W/3_way.png");
+	AdTex(L"NWayBulletDisplay", L"./rs/UI/W/3WayFlak.png");
 	AdTex(L"NuClearDisplay", L"./rs/UI/W/Nuclear.png");
 	AdTex(L"HommingMissile", L"./rs/UI/W/Homming.png");
 
@@ -158,8 +161,8 @@ void LoadingScene::Loading()
 
 	AdMesh(L"Stage02", L"./rs/Stage2/Stage2.obj");
 	AdMesh(L"Stage02SkyBox", L"./rs/Stage2/SkyBox/Skybox.obj");
-	AdTex(L"Stage02Height", L"./rs/Stage2/A_.png");
-	AdTex(L"Stage02Width", L"./rs/Stage2/B_.png");
+	AdTex(L"Stage02Height", L"./rs/Stage2/STAGE2B.png");
+	AdTex(L"Stage02Width", L"./rs/Stage2/STAGE2B_.png");
 
 	//Main
 	AdTex(L"MainBackGroundA", L"./rs/Main/MainA.png");

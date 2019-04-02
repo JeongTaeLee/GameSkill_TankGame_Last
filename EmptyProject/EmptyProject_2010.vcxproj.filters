@@ -21,9 +21,6 @@
     <Filter Include="Scene">
       <UniqueIdentifier>{766d36a7-3c52-40e3-bb1a-b341b7e76f0e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame">
-      <UniqueIdentifier>{9d632ca5-3617-4fd3-a9b3-31917203d73e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Manager\InputManager">
       <UniqueIdentifier>{9eff9f58-8511-4753-96ca-b41b93589b8d}</UniqueIdentifier>
     </Filter>
@@ -200,6 +197,9 @@
     </Filter>
     <Filter Include="Manager\SoundManager">
       <UniqueIdentifier>{5f379278-0d70-44b4-8de4-e32294cd33dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame">
+      <UniqueIdentifier>{9d632ca5-3617-4fd3-a9b3-31917203d73e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

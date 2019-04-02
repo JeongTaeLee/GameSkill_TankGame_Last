@@ -28,7 +28,7 @@ void Collider::Release()
 
 void Collider::SetCollider(float _fRad, const Vector3 & _vOffset)
 {
-	gameObject->AC(DebugCollider)->SetDebugCollider(_fRad);
+	//gameObject->AC(DebugCollider)->SetDebugCollider(_fRad);
 
 	fRad = _fRad;
 	vOffset = _vOffset;

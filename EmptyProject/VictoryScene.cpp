@@ -15,6 +15,7 @@ VictoryScene::~VictoryScene()
 
 void VictoryScene::Init()
 {
+
 	LoadTexs(L"VictroyEnding%d", L"./rs/Ending_/(%d).jpg", 1, 41);
 
 	AnimationView * lpAni = AddObject(AnimationView);
@@ -23,10 +24,13 @@ void VictoryScene::Init()
 		AddObject(Ranking);
 		return false;
 	};
+
+	SOUND->Play(L"Victory", true);
 }
 
 void VictoryScene::Release()
 {
+	SOUND->Stop(L"Victory");
 	OBJECT->Reset();
 }
 

@@ -98,10 +98,13 @@ void MapManager::SetWidthMap(texture * lpWidthMap)
 			if (color == D3DXCOLOR(0.f, 0.f, 1.f, 1.f))
 			{
 				Stone * lpStone = AddObject(Stone);
+				lpStone->lpPlayer = lpTank;
 				lpStone->transform->vPos = Vector3(x, vHeightMap[x].second, (z - (float)iHeight / 2.f) * -1);
 			}
 		}
 	}
+	lpWidthMap->lpTex->UnlockRect(0);
+
 }
 
 void MapManager::SetHieghtMap(texture * lpHeightMap)
@@ -132,6 +135,7 @@ void MapManager::SetHieghtMap(texture * lpHeightMap)
 			}
 		}
 	}
+	lpHeightMap->lpTex->UnlockRect(0);
 }
 
 int MapManager::GetBastScore()
@@ -147,9 +151,7 @@ void MapManager::SaveScore(wstring strName, int iScore)
 	for (auto Iter = liScores.begin(); Iter != liScores.end();)
 	{
 		if (Iter->first == strName)
-		{
 			Iter = liScores.erase(Iter);
-		}
 		else
 			++Iter;
 	}
@@ -158,31 +160,30 @@ void MapManager::SaveScore(wstring strName, int iScore)
 
 	sort(liScores.begin(), liScores.end(), ScoreSotring);
 
-	wofstream output;
-	output.open(L"./rs/score.txt", ios::trunc);
+	wofstream output(L"./rs/score.txt", ios::trunc);
 
 	for (auto Iter : liScores)
-	{
-		output << Iter.first << " " << Iter.second << endl;
-	}
+		output << Iter.first << " " <<Iter.second;
 
 	output.close();
 }
 
 void MapManager::LoadScore()
 {
-	wifstream input;
-	input.open(L".rs/score.txt");
+	wifstream input(L"./rs/score.txt");
 
-	while (!input.eof())
+	if (input.fail())
 	{
-		wstring name; int score;
-
-		input >> name >> score;
-
-		if (name == L"" || name == L" ")
-			continue;
-
-		liScores.push_back(make_pair(name, score));
+		DEBUG_LOG("ScoreData Load Failed!");
+		return;
 	}
+	while (!input.eof()) {
+		wstring str;
+		int score = 0;
+
+		input >> str >> score;
+		liScores.push_back(make_pair(str, score));
+	}
+
+	input.close();
 }

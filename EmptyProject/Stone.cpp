@@ -2,6 +2,7 @@
 #include "Stone.h"
 #include "LockOnCrossHair.h"
 #include "PlayerTank.h"
+#include "Item.h"
 Stone::Stone()
 {
 	sTag = "Stone";
@@ -46,6 +47,11 @@ void Stone::Update()
 			return;
 		}
 
+		if (lpPlayer->eWeapon == PLAYERWEAPON::e_homming)
+			lpLockOnCrossHair->lpUIRenderer->bEnable = true;
+		else
+			lpLockOnCrossHair->lpUIRenderer->bEnable = false;
+
 		Vector3 v2Dpos;
 		WorldTo2D(v2Dpos, transform->vPos);
 
@@ -53,7 +59,7 @@ void Stone::Update()
 		Vector2 vMousePos = INPUT->GetMPos();
 		float fLegnth = GetLength(Vector3(vMousePos.x, vMousePos.y, 0.f), v2Dpos);
 
-		if (fLegnth < 30.f)
+		if (fLegnth < 50.f)
 			lpPlayer->FireHommingMissile(this);
 	}
 	else
@@ -75,6 +81,16 @@ void Stone::ReceiveCollider(Collider * lpOther)
 			bExplosion = true;
 			lpCollider->bEnable = false;
 			lpAnimater->UnStop();
+
+			int fRandom = GetRandomNumber(0, 100);
+
+			if (fRandom < 50.f)
+			{
+				ITEMTYPE item = (ITEMTYPE)GetRandomNumber((int)ITEMTYPE::ITEM_D, (int)ITEMTYPE::ITEM_U);
+				Item * item_ = AddObject(Item);
+				item_->SetItem(transform->vPos, item);
+				item_->lpTank = lpPlayer;
+			}
 		}
 	}
 
@@ -88,6 +104,11 @@ void Stone::ReceiveCollider(Collider * lpOther)
 			bExplosion = true;
 			lpCollider->bEnable = false;
 			lpAnimater->UnStop();
+
+			ITEMTYPE item = (ITEMTYPE)GetRandomNumber((int)ITEMTYPE::ITEM_D, (int)ITEMTYPE::ITEM_U);
+			Item * item_ = AddObject(Item);
+			item_->SetItem(transform->vPos, item);
+			item_->lpTank = lpPlayer;
 		}
 	}
 }

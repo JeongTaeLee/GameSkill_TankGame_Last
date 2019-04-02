@@ -192,11 +192,16 @@ void PlayerTank::Idle()
 				--MAP->iWidthIndex;
 		}
 	}
+	
+	float fSpeedUp = 1.f;
+
+	if (bSpeedUpEnable)
+		fSpeedUp = 1.5f;
 
 	if (bBack)
-		transform->vPos += -vLookDir * (fTotalSpeed * Et());
+		transform->vPos += -vLookDir * ((fTotalSpeed * fSpeedUp) * Et());
 	else
-		transform->vPos += vLookDir * (fTotalSpeed * Et());
+		transform->vPos += vLookDir * ((fTotalSpeed * fSpeedUp) * Et());
 	fTotalSpeed *= 0.92;
 
 	if (KEYDOWN(VK_SPACE))
@@ -370,6 +375,7 @@ void PlayerTank::SetState(PLAYERSTATE _eState)
 			lpRenderer->bEnable = false;
 			lpCollider->bEnable = false;
 			lpGun->bActive = false;
+			lpGun->lpRenderer->bEnable = false;
 
 			fDoubleJumpElapsed = 0.f;
 			bDoubleJumpEnable = false;
@@ -399,6 +405,7 @@ void PlayerTank::SetState(PLAYERSTATE _eState)
 			lpRenderer->bEnable = true;
 			lpCollider->bEnable = true;
 			lpGun->bActive = true;
+			lpGun->lpRenderer->bEnable = true;
 
 			break;
 		case E_PLAYERSTATE_NUCLEAR:

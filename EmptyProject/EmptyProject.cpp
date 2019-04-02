@@ -133,14 +133,6 @@ INT WINAPI wWinMain( HINSTANCE, HINSTANCE, LPWSTR, int )
 
 	}
 #endif
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	if (AllocConsole())
-	{
-		freopen("CONOUT$", "wb", stdout);
-		freopen("CONERR$", "wb", stderr);
-		freopen("CONIN$", "rb", stdin);
-
-	}
 
     // Set the callback functions
     DXUTSetCallbackD3D9DeviceAcceptable( IsD3D9DeviceAcceptable );
@@ -160,7 +152,7 @@ INT WINAPI wWinMain( HINSTANCE, HINSTANCE, LPWSTR, int )
     DXUTSetHotkeyHandling( true, false, true );  // handle the default hotkeys
     DXUTSetCursorSettings( true, true ); // Show the cursor and clip it when in full screen
     DXUTCreateWindow( L"EmptyProject" );
-    DXUTCreateDevice( true, WINDOWX, WINDOWY);
+    DXUTCreateDevice( false, WINDOWX, WINDOWY);
 
     // Start the render loop
     DXUTMainLoop();

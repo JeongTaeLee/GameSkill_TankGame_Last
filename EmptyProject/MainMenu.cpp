@@ -21,7 +21,8 @@ MainMenu::~MainMenu()
 
 void MainMenu::Init()
 {
-	MAP->LoadScore();
+	MAP->iScore = 0;
+	//MAP->LoadScore();
 
 	SOUND->Play(L"IntroLoading", true);
 

@@ -16,7 +16,7 @@ void LockOnCrossHair::Init()
 	AC(UIRenderer);
 	lpUIRenderer->lpTex = GetTex(L"LockOnCrossHair");
 	lpUIRenderer->vCenterPos = Vector3(lpUIRenderer->lpTex->info.Width / 2.f, lpUIRenderer->lpTex->info.Height / 2.f, 0.f);
-	transform->vScale = Vector3(1.5f, 1.5f, 1.5f);
+	transform->vScale = Vector3(1.3f, 1.3f, 1.3f);
 }
 
 void LockOnCrossHair::Update()
@@ -37,15 +37,15 @@ void LockOnCrossHair::Update()
 		Vector2 vMousePos = INPUT->GetMPos();
 		float fLegnth = GetLength(Vector3(vMousePos.x, vMousePos.y, 0.f), v2Dpos);
 
-		if (fLegnth < 30.f)
+		if (fLegnth < 50.f)
 		{
 			lpUIRenderer->color = D3DXCOLOR(1.f, 0.f, 0.f, 1.f);
-			D3DXVec3Lerp(&transform->vScale, &transform->vScale, &Vector3(2.f, 2.f, 2.f), 0.2f);
+			D3DXVec3Lerp(&transform->vScale, &transform->vScale, &Vector3(1.6f, 1.6f, 1.6f), 0.2f);
 		}
 		else
 		{
 			lpUIRenderer->color = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
-			D3DXVec3Lerp(&transform->vScale, &transform->vScale, &Vector3(1.5f, 1.5f, 1.5f), 0.2f);
+			D3DXVec3Lerp(&transform->vScale, &transform->vScale, &Vector3(1.3f, 1.3f, 1.3f), 0.2f);
 		}
 	}
 	else return;

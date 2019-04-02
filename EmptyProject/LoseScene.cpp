@@ -14,6 +14,7 @@ LoseScene::~LoseScene()
 
 void LoseScene::Init()
 {
+
 	LoadTexs(L"LoseEnding%d", L"./rs/Ending/(%d).jpg", 1, 41);
 
 	AnimationView * lpAni = AddObject(AnimationView);
@@ -22,10 +23,14 @@ void LoseScene::Init()
 		AddObject(Ranking);
 		return false;
 	};
+	
+	SOUND->Play(L"Failed", true);
 }
 
 void LoseScene::Release()
 {
+	SOUND->Stop(L"Failed");
+
 	OBJECT->Reset();
 }
 

@@ -35,13 +35,13 @@ void PlayerDieEffect::Update()
 			switch (eType)
 			{
 			case e_tank01:
-				AddObject(Explosion3D)->Set3DExplosion(transform->vPos, Vector3(0.5f, 0.5f, 0.5f), L"PlayerADie%d", 0, 5, 0.05f);
+				AddObject(Explosion3D)->Set3DExplosion(transform->vPos, Vector3(0.3f, 0.3f, 0.3f), L"PlayerADie%d", 0, 20, 0.05f);
 				break;
 			case e_tank02:
-				AddObject(Explosion3D)->Set3DExplosion(transform->vPos, Vector3(0.5f, 0.5f, 0.5f), L"PlayerBDie%d", 0, 5, 0.05f);
+				AddObject(Explosion3D)->Set3DExplosion(transform->vPos, Vector3(0.3f, 0.3f, 0.3f), L"PlayerBDie%d", 0, 20, 0.05f);
 				break;
 			case e_tank03:
-				AddObject(Explosion3D)->Set3DExplosion(transform->vPos, Vector3(0.5f, 0.5f, 0.5f), L"PlayerCDie%d", 0, 5, 0.05f);
+				AddObject(Explosion3D)->Set3DExplosion(transform->vPos, Vector3(0.3f, 0.3f, 0.3f), L"PlayerCDie%d", 0, 20, 0.05f);
 				break;
 			default:
 				break;

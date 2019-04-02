@@ -32,13 +32,19 @@ void Monster::Release()
 
 void Monster::HommingCheck()
 {
+	if (lpPlayer->eWeapon == PLAYERWEAPON::e_homming)
+		lpLockOnHair->lpUIRenderer->bEnable = true;
+	else
+		lpLockOnHair->lpUIRenderer->bEnable = false;
+
+
 	Vector3 v2Dpos = Vector3(0.f, 0.f, 0.f);
 	WorldTo2D(v2Dpos, transform->vPos);
 
 	Vector2 vMousePos = INPUT->GetMPos();
 	float fLegnth = GetLength(Vector3(vMousePos.x, vMousePos.y, 0.f), v2Dpos);
 
-	if (fLegnth < 30.f)
+	if (fLegnth < 50.f)
 	{
 		if (KEYDOWN(VK_LBUTTON))
 			lpPlayer->FireHommingMissile(this);
@@ -49,7 +55,7 @@ void Monster::CreateItem()
 {
 	int fRandom = GetRandomNumber(0, 100);
 
-	if (fRandom < 50)
+	if (fRandom < 50.f)
 	{
 		ITEMTYPE item = (ITEMTYPE)GetRandomNumber((int)ITEMTYPE::ITEM_D, (int)ITEMTYPE::ITEM_U);
 		Item * item_ = AddObject(Item);
@@ -69,7 +75,7 @@ void Monster::ReceiveCollider(Collider * lpOther)
 
 		if (iLife <= 0)
 		{
-			lpPlayer->lpPlayerUI->AddScore(100.f);
+			lpPlayer->lpPlayerUI->AddScore(100);
 
 			AddObject(MosnterDieEffect)->SetMonsterDieEffect(eMonsterType, transform->vPos, Vector3(0.2f, 0.2f, 0.2f));
 			CreateItem();
@@ -83,7 +89,7 @@ void Monster::ReceiveCollider(Collider * lpOther)
 
 		if (iLife <= 0)
 		{
-			lpPlayer->lpPlayerUI->AddScore(100.f);
+			lpPlayer->lpPlayerUI->AddScore(100);
 
 			AddObject(MosnterDieEffect)->SetMonsterDieEffect(eMonsterType, transform->vPos, Vector3(0.2f, 0.2f, 0.2f));
 			CreateItem();

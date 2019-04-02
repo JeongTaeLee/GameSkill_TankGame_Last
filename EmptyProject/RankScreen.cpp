@@ -19,13 +19,14 @@ void RankScreen::Init()
 
 	Text * text;
 	
-	if(MAP->liScores.size() >= 0)
+	if(MAP->liScores.size() > 0)
 	{ 
 		text = AC(Text);
 		text->vPos = Vector3(257, 139, 0.f);
+		text->iSize = 40;
 
 		wchar_t ch[256];
-		swprintf(ch, L"%s, %d", MAP->liScores[0].first, MAP->liScores[0].second);
+		swprintf(ch, L"%s %06d", MAP->liScores[0].first.c_str(), MAP->liScores[0].second);
 		text->str = ch;
 	}
 	
@@ -33,8 +34,10 @@ void RankScreen::Init()
 	{
 		text = AC(Text);
 		text->vPos = Vector3(257, 246, 0.f);
+		text->iSize = 40;
+
 		wchar_t ch[256];
-		swprintf(ch, L"%s, %d", MAP->liScores[1].first, MAP->liScores[1].second);
+		swprintf(ch, L"%s %06d", MAP->liScores[1].first.c_str(), MAP->liScores[1].second);
 		text->str = ch;
 	}
 
@@ -42,8 +45,10 @@ void RankScreen::Init()
 	{
 		text = AC(Text);
 		text->vPos = Vector3(257, 353, 0.f);
+		text->iSize = 40;
+
 		wchar_t ch[256];
-		swprintf(ch, L"%s, %d", MAP->liScores[2].first, MAP->liScores[2].second);
+		swprintf(ch, L"%s, %06d", MAP->liScores[2].first.c_str(), MAP->liScores[2].second);
 		text->str = ch;
 	}
 

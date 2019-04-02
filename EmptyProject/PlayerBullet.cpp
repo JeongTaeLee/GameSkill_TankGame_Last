@@ -75,7 +75,7 @@ void PlayerBullet::SetBullet(PLAYERBULLETYPE type, RefV3 vPos, Quaternion qRot, 
 
 void PlayerBullet::ReceiveCollider(Collider * lpOther)
 {
-	if (lpOther->gameObject->sTag == "Monster" || lpOther->gameObject->sTag == "Stone")
+	if (lpOther->gameObject->sTag == "Monster" || lpOther->gameObject->sTag == "Stone" || lpOther->gameObject->sTag == "MonsterBullet")
 	{	
 		CreateExplosionA(transform->vPos);
 		bDestroy = true;

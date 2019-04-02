@@ -39,9 +39,8 @@ void Item::Update()
 
 		float fLength = GetLength(transform->vPos, lpTank->transform->vPos);
 
-		if (fLength < 20.f)
+		if (fLength < 50.f)
 		{
-			DEBUG_LOG("In");
 			Vector3 vDir = lpTank->transform->vPos - transform->vPos;
 			D3DXVec3Normalize(&vDir, &vDir);
 

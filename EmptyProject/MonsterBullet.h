@@ -16,5 +16,8 @@ public:
 	virtual void Update()	override;
 
 	void SetBullet(RefV3 vPos, RefV3 vDir, float fPower);
+
+	virtual void ReceiveCollider(Collider * lpOther) override;
+
 };
 

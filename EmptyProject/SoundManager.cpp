@@ -26,7 +26,8 @@ void SoundManager::AddSound(RefStr key, RefStr path)
 
 void SoundManager::Play(RefStr key, bool isLoop, int v)
 {
-	mSounds[key]->Play(0, (INT)isLoop, v);
+	mSounds[key]->GetBuffer(0)->SetVolume(v);
+	mSounds[key]->GetBuffer(0)->Play(0, 0, isLoop);
 }
 
 void SoundManager::DuplicatePlay(RefStr key)

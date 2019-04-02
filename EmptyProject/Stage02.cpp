@@ -24,7 +24,7 @@ void Stage02::Init()
 	MonsterSpawn * lpSpawn = AddObject(MonsterSpawn);
 	lpSpawn->lpPlayer = tank;
 
-	SOUND->DuplicatePlay(L"Sound");
+	SOUND->DuplicatePlay(L"Start");
 }
 
 void Stage02::Release()

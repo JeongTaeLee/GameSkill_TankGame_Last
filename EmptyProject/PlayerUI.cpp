@@ -72,7 +72,7 @@ void PlayerUI::AddScore(int iCount)
 	MAP->iScore += iCount;
 	
 	wchar_t str[7];
-	swprintf(str, L"%06d", iCount);
+	swprintf(str, L"%06d", MAP->iScore);
 	lpScoreBarText->str = str;
 }
 

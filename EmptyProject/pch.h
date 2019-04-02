@@ -40,11 +40,11 @@ using RefStr = const wstring &;
 #else
 #define DEBUG_LOG(s)
 
-#define DEBUG_LOG(s) cout << s << endl
-#define DEBUG_LOGW(s)  wcout << s << endl
+#define DEBUG_LOG(s)
+#define DEBUG_LOGW(s)  
 
-#define DEBUG_LOG_V3(s) cout << s.x << ", "	<< s.y << ", "	<< s.z << endl;
-#define DEBUG_LOG_V2(s) cout << s.x << ", "	<< s.y << endl;
+#define DEBUG_LOG_V3(s)
+#define DEBUG_LOG_V2(s)
 
 #endif
 

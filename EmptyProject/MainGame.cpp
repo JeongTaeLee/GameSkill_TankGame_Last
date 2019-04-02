@@ -19,6 +19,11 @@ MainGame::~MainGame()
 
 void MainGame::Init()
 {
+	ShowCursor(false);
+
+	D3DXCreateTextureFromFileEx(g_device, L"./rs/UI/MouseCursor.png", D3DX_DEFAULT_NONPOW2, D3DX_DEFAULT_NONPOW2, 1, 0,
+		D3DFMT_UNKNOWN, D3DPOOL_MANAGED, D3DX_DEFAULT, D3DX_DEFAULT, 0, nullptr, nullptr, &mouse);
+
 	g_device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	g_device->SetRenderState(D3DRS_LIGHTING, false);
@@ -36,6 +41,9 @@ void MainGame::Init()
 
 void MainGame::Release()
 {
+	SAFE_RELEASE(mouse);
+	ShowCursor(true);
+
 	MapManager::ReleaseInst();
 	SceneManager::ReleaseInst();
 	ObjectManager::ReleaseInst();
@@ -64,4 +72,12 @@ void MainGame::Render()
 {
 	CAMERA->SetViewMatrix();
 	OBJECT->Render();
+
+	RESOURCE->lpSprite->Begin(D3DXSPRITE_ALPHABLEND);
+
+	Matrix matPos;
+	D3DXMatrixTranslation(&matPos, INPUT->GetMPos().x, INPUT->GetMPos().y, 0.f);
+	RESOURCE->lpSprite->SetTransform(&matPos);
+	RESOURCE->lpSprite->Draw(mouse, nullptr, &Vector3(83.f / 2.f, 83.f / 2.f, 0.f), nullptr, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
+	RESOURCE->lpSprite->End();
 }

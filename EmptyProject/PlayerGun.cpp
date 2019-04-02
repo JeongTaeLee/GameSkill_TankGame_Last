@@ -46,6 +46,9 @@ void PlayerGun::Attack(RefV3 vRight, bool _bNwayBullet)
 
 	float fDeleteTime = 0.5f;
 
+	if (dynamic_cast<PlayerTank*>(transform->lpParent)->bRangeUpEnable)
+		fDeleteTime = 1.f;
+
 	switch (eGunType)
 	{
 	case e_noneGunType:
@@ -61,7 +64,7 @@ void PlayerGun::Attack(RefV3 vRight, bool _bNwayBullet)
 		break;
 	}
 
-	AddObject(PlayerBullet)->SetBullet(E_PLAYERBULLET_02, transform->vWorldPos, qRot, 300.f, fDeleteTime);
+	AddObject(PlayerBullet)->SetBullet(E_PLAYERBULLET_02, transform->vWorldPos, qRot, 400.f, fDeleteTime);
 
 	if (_bNwayBullet)
 	{
@@ -80,8 +83,8 @@ void PlayerGun::Attack(RefV3 vRight, bool _bNwayBullet)
 		Quaternion qRotRight;
 		D3DXQuaternionRotationMatrix(&qRotRight, &matRotRight);
 
-		AddObject(PlayerBullet)->SetBullet(E_PLAYERBULLET_02, transform->vWorldPos, qRotLeft, 400.f, 0.5f);
-		AddObject(PlayerBullet)->SetBullet(E_PLAYERBULLET_02, transform->vWorldPos, qRotRight, 400.f, 0.5f);
+		AddObject(PlayerBullet)->SetBullet(E_PLAYERBULLET_02, transform->vWorldPos, qRotLeft, 400.f, fDeleteTime);
+		AddObject(PlayerBullet)->SetBullet(E_PLAYERBULLET_02, transform->vWorldPos, qRotRight, 400.f, fDeleteTime);
 	}
 }
 
